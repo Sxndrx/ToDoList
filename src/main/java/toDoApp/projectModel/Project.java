@@ -1,5 +1,6 @@
-package model;
+package toDoApp.projectModel;
 
+import toDoApp.taskModel.Task;
 import org.bson.types.ObjectId;
 
 import javax.persistence.*;
@@ -18,8 +19,8 @@ public class Project {
     private String description;
     private int priority;
 
-    @ElementCollection
-    private Map<ObjectId, Task> tasks = new HashMap<>();
+    @ElementCollection(targetClass = Task.class)
+    private List<Task> tasks = new ArrayList<>();
 
 
     public ObjectId getId() {
@@ -54,11 +55,8 @@ public class Project {
         this.priority = priority;
     }
 
-    public Map<ObjectId, Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Map<ObjectId, Task> tasks) {
-        this.tasks = tasks;
+    @Override
+    public String toString() {
+        return "Project : " + id.toString() + " name: " + title;
     }
 }

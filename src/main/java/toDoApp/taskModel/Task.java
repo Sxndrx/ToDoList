@@ -1,19 +1,15 @@
-package model;
+package toDoApp.taskModel;
 
 import org.bson.types.ObjectId;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Embeddable
 public class Task {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private ObjectId id;
 
     private String title;
@@ -22,9 +18,8 @@ public class Task {
     private Integer priority;
     private Boolean notify;
     private Date notificationDate;
-    @ElementCollection
-    private Map<ObjectId, Task> subTasks = new HashMap<>();
-
+    @ElementCollection(targetClass = Task.class)
+    private List<Task> subTasks = new ArrayList<>();
 
     public ObjectId getId() {
         return id;
@@ -82,11 +77,11 @@ public class Task {
         this.notificationDate = notificationDate;
     }
 
-    public Map<ObjectId, Task> getSubTasks() {
+    public List<Task> getSubTasks() {
         return subTasks;
     }
 
-    public void setSubTasks(Map<ObjectId, Task> subTasks) {
+    public void setSubTasks(List<Task> subTasks) {
         this.subTasks = subTasks;
     }
 }

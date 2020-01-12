@@ -1,3 +1,5 @@
+package toDoApp;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -10,6 +12,7 @@ public class HibernateUtil {
             entityManagerFactory = Persistence.createEntityManagerFactory(persistenceName);
         } catch (Exception e) {
             System.err.println("Initial EntityManagerFactory creation failed." + e);
+            e.printStackTrace();
         }
     }
 
