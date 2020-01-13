@@ -1,0 +1,10 @@
+primary #1b5e20
+light #4c8c4a
+dark #003300
+
+gray #424242
+light gray #6d6d6d	
+dark gray #1b1b1b
+
+white #efefef
+

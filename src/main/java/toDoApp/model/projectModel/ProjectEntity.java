@@ -1,26 +1,24 @@
-package toDoApp.projectModel;
+package toDoApp.model.projectModel;
 
-import toDoApp.taskModel.Task;
 import org.bson.types.ObjectId;
+import toDoApp.model.taskModel.TaskEntity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 @Entity
-public class Project {
+public class ProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private ObjectId id;
 
     private String title;
     private String description;
-    private int priority;
+    private Boolean priority;
 
-    @ElementCollection(targetClass = Task.class)
-    private List<Task> tasks = new ArrayList<>();
+    @ElementCollection(targetClass = TaskEntity.class)
+    private List<TaskEntity> taskEntities = new LinkedList<>();
 
 
     public ObjectId getId() {
@@ -47,12 +45,20 @@ public class Project {
         this.description = description;
     }
 
-    public int getPriority() {
+    public Boolean getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Boolean priority) {
         this.priority = priority;
+    }
+
+    public List<TaskEntity> getTaskEntities() {
+        return taskEntities;
+    }
+
+    public void setTaskEntities(List<TaskEntity> taskEntities) {
+        this.taskEntities = taskEntities;
     }
 
     @Override

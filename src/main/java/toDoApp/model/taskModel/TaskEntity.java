@@ -1,4 +1,4 @@
-package toDoApp.taskModel;
+package toDoApp.model.taskModel;
 
 import org.bson.types.ObjectId;
 
@@ -7,7 +7,7 @@ import java.util.*;
 
 @Entity
 @Embeddable
-public class Task {
+public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private ObjectId id;
@@ -15,11 +15,11 @@ public class Task {
     private String title;
     private String description;
     private Date dueDate;
-    private Integer priority;
+    private Boolean priority;
     private Boolean notify;
     private Date notificationDate;
-    @ElementCollection(targetClass = Task.class)
-    private List<Task> subTasks = new ArrayList<>();
+    @ElementCollection(targetClass = TaskEntity.class)
+    private List<TaskEntity> subTaskEntities = new ArrayList<>();
 
     public ObjectId getId() {
         return id;
@@ -53,11 +53,11 @@ public class Task {
         this.dueDate = dueDate;
     }
 
-    public Integer getPriority() {
+    public Boolean getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(Boolean priority) {
         this.priority = priority;
     }
 
@@ -77,11 +77,11 @@ public class Task {
         this.notificationDate = notificationDate;
     }
 
-    public List<Task> getSubTasks() {
-        return subTasks;
+    public List<TaskEntity> getSubTaskEntities() {
+        return subTaskEntities;
     }
 
-    public void setSubTasks(List<Task> subTasks) {
-        this.subTasks = subTasks;
+    public void setSubTaskEntities(List<TaskEntity> subTaskEntities) {
+        this.subTaskEntities = subTaskEntities;
     }
 }

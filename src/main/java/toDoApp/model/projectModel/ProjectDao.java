@@ -1,65 +1,69 @@
-package toDoApp.projectModel;
+package toDoApp.model.projectModel;
 
 import org.hibernate.Session;
 import toDoApp.HibernateUtil;
-import toDoApp.taskModel.Task;
-import org.bson.types.ObjectId;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDao implements IProjectDao {
     @Override
-    public void addProject(Project project) {
+    public void addProjectEntity(ProjectEntity projectEntity) {
+        EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        try{
+            entityManager.persist(projectEntity);
+            transaction.commit();
+            entityManager.flush();
+        }catch (Exception e){
+            transaction.rollback();
+        }
+        entityManager.close();
+    }
+
+    @Override
+    public void removeProjectEntity(ProjectEntity projectEntity) {
+        EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        try{
+            entityManager.refresh(projectEntity);
+            entityManager.remove(projectEntity);
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+        }
+        entityManager.close();
+    }
+
+
+    @Override
+    public void updateProjectEntity(ProjectEntity projectEntity) {
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.persist(project);
+        entityManager.unwrap(Session.class).merge(projectEntity);
         entityManager.flush();
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
     @Override
-    public void removeProject(Project project) {
+    public List<ProjectEntity> getAllProjectEntities() {
+        List <ProjectEntity> projectEntities = new ArrayList<>();
+        String query = "db.ProjectEntity.find({})";
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.refresh(project);
-        entityManager.remove(project);
-        entityManager.flush();
-        entityManager.close();
-    }
-
-    @Override
-    public List<Task> getTasks(ObjectId id) {
-        return null;
-    }
-
-
-    @Override
-    public void updateProject(Project project) {
-        EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.unwrap(Session.class).merge(project);
-        entityManager.flush();
-        entityManager.getTransaction().commit();
-        entityManager.close();
-    }
-
-    @Override
-    public List<Project> getAllProjects() {
-        List <Project> projects = new ArrayList<>();
-        String query = "db.Project.find({})";
-        EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        projects = entityManager.createNativeQuery(query, Project.class).getResultList();
+        projectEntities = entityManager.createNativeQuery(query, ProjectEntity.class).getResultList();
         entityManager.close();
 
-        return projects;
+        return projectEntities;
     }
 }
