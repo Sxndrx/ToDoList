@@ -1,23 +1,24 @@
-package toDoApp.model.projectModel;
+package toDoApp.database.task;
 
+import org.bson.types.ObjectId;
 import org.hibernate.Session;
 import toDoApp.HibernateUtil;
+import toDoApp.model.task.Task;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDao implements IProjectDao {
+public class TaskDao implements ITaskDao {
     @Override
-    public void addProjectEntity(ProjectEntity projectEntity) {
+    public void addTaskEntity(TaskEntity taskEntity) {
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try{
-            entityManager.persist(projectEntity);
+            entityManager.persist(taskEntity);
             transaction.commit();
             entityManager.flush();
         }catch (Exception e){
@@ -27,14 +28,19 @@ public class ProjectDao implements IProjectDao {
     }
 
     @Override
-    public void removeProjectEntity(ProjectEntity projectEntity) {
+    public TaskEntity getTaskEntity(ObjectId taskId) {
+        return null;
+    }
+
+    @Override
+    public void removeTaskEntity(TaskEntity taskEntity) {
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try{
-            entityManager.refresh(projectEntity);
-            entityManager.remove(projectEntity);
+            entityManager.refresh(taskEntity);
+            entityManager.remove(taskEntity);
             transaction.commit();
         }catch (Exception e){
             transaction.rollback();
@@ -42,28 +48,40 @@ public class ProjectDao implements IProjectDao {
         entityManager.close();
     }
 
-
     @Override
-    public void updateProjectEntity(ProjectEntity projectEntity) {
+    public void updateTaskEntity(TaskEntity taskEntity) {
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.unwrap(Session.class).merge(projectEntity);
+        entityManager.unwrap(Session.class).merge(taskEntity);
         entityManager.flush();
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
     @Override
-    public List<ProjectEntity> getAllProjectEntities() {
-        List <ProjectEntity> projectEntities = new ArrayList<>();
-        String query = "db.ProjectEntity.find({})";
+    public List<TaskEntity> getAllTaskEntitiesFromProject(String projectId) {
+        String query = "db.TaskEntity.find({'projectEntity_id' : ObjectId(\"" + projectId + "\")})";
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        projectEntities = entityManager.createNativeQuery(query, ProjectEntity.class).getResultList();
+        List<TaskEntity> taskEntities = entityManager.createNativeQuery(query, TaskEntity.class).getResultList();
+        entityManager.flush();
+        entityManager.getTransaction().commit();
         entityManager.close();
+        return taskEntities;
+    }
 
-        return projectEntities;
+    @Override
+    public List<TaskEntity> getAllTaskEntitiesFromParentTask(String parentId) {
+        String query = "db.TaskEntity.find({'parentTaskEntity_id' : ObjectId(\"" + parentId + "\")})";
+        EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        List<TaskEntity> taskEntities = entityManager.createNativeQuery(query, TaskEntity.class).getResultList();
+        entityManager.flush();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return taskEntities;
     }
 }

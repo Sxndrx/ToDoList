@@ -1,31 +1,25 @@
-package toDoApp.model.projectModel;
+package toDoApp.database.project;
 
-import org.bson.types.ObjectId;
-import toDoApp.model.taskModel.TaskEntity;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 public class ProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private ObjectId id;
+    @Type(type = "objectid")
+    private String id;
 
     private String title;
     private String description;
     private Boolean priority;
 
-    @ElementCollection(targetClass = TaskEntity.class)
-    private List<TaskEntity> taskEntities = new LinkedList<>();
-
-
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -51,14 +45,6 @@ public class ProjectEntity {
 
     public void setPriority(Boolean priority) {
         this.priority = priority;
-    }
-
-    public List<TaskEntity> getTaskEntities() {
-        return taskEntities;
-    }
-
-    public void setTaskEntities(List<TaskEntity> taskEntities) {
-        this.taskEntities = taskEntities;
     }
 
     @Override

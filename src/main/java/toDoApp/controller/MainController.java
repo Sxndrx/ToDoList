@@ -18,7 +18,7 @@ public class MainController {
     void initialize() {
         AnchorPane projectViewAnchor = null;
         try {
-            projectViewAnchor = FXMLLoader.load(getClass().getResource("/view/ProjectsView.fxml"));
+            projectViewAnchor = FXMLLoader.load(getClass().getResource("/view/ProjectListView.fxml"));
             mainAnchor.setLeftAnchor(projectViewAnchor, 0.0);
             mainAnchor.setTopAnchor(projectViewAnchor, 0.0);
             mainAnchor.getChildren().add(projectViewAnchor);

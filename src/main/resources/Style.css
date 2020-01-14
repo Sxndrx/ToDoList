@@ -1,0 +1,22 @@
+.stdButton{
+    -fx-text-fill: #efefef;
+    -fx-background-color: #002f6c;
+}
+.upperBar{
+    -fx-background-color: #01579b;
+    -fx-pref-height: 40;
+}
+.labLight{
+    -fx-text-fill: #efefef;
+    -fx-alignment: center;
+    -fx-font-size: 16;
+}
+.labDark{
+    -fx-text-fill: #1b1b1b;
+    -fx-font-size: 14;
+}
+
+.iconSimpleBlack {
+    -fx-fit-to-width: 40;
+    -fx-fit-to-width: 40;
+}

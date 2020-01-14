@@ -1,7 +1,5 @@
-package toDoApp.model.projectModel;
+package toDoApp.database.project;
 
-import toDoApp.model.taskModel.TaskEntity;
-import org.bson.types.ObjectId;
 
 import java.util.List;
 
@@ -10,4 +8,5 @@ public interface IProjectDao {
     void removeProjectEntity(ProjectEntity projectEntity);
     void updateProjectEntity(ProjectEntity projectEntity);
     List<ProjectEntity> getAllProjectEntities();
+    ProjectEntity getProjectById(String id);
 }

@@ -1,16 +1,17 @@
-package toDoApp.model.taskModel;
+package toDoApp.database.task;
 
-import org.bson.types.ObjectId;
+import org.hibernate.annotations.Type;
+import toDoApp.database.project.ProjectEntity;
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Embeddable
 public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private ObjectId id;
+    @Type(type = "objectid")
+    private String id;
 
     private String title;
     private String description;
@@ -18,14 +19,17 @@ public class TaskEntity {
     private Boolean priority;
     private Boolean notify;
     private Date notificationDate;
-    @ElementCollection(targetClass = TaskEntity.class)
-    private List<TaskEntity> subTaskEntities = new ArrayList<>();
 
-    public ObjectId getId() {
+    @ManyToOne
+    private ProjectEntity projectEntity;
+    @ManyToOne
+    private TaskEntity parentTaskEntity;
+
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -77,11 +81,19 @@ public class TaskEntity {
         this.notificationDate = notificationDate;
     }
 
-    public List<TaskEntity> getSubTaskEntities() {
-        return subTaskEntities;
+    public ProjectEntity getProjectEntity() {
+        return projectEntity;
     }
 
-    public void setSubTaskEntities(List<TaskEntity> subTaskEntities) {
-        this.subTaskEntities = subTaskEntities;
+    public void setProjectEntity(ProjectEntity projectEntity) {
+        this.projectEntity = projectEntity;
+    }
+
+    public TaskEntity getParentTaskEntity() {
+        return parentTaskEntity;
+    }
+
+    public void setParentTaskEntity(TaskEntity parentTaskEntity) {
+        this.parentTaskEntity = parentTaskEntity;
     }
 }

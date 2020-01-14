@@ -1,0 +1,15 @@
+primary #01579b
+light #4f83cc
+dark #002f6c
+
+gray #424242
+light gray #6d6d6d	
+dark gray #1b1b1b
+
+white #efefef
+
+dark red #c4001d
+light red #ff5a4e
+
+priority #efdca5
+
