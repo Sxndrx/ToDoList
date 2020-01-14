@@ -46,7 +46,7 @@ public class ProjectListViewCell extends ListCell<Project> {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProjectCell.fxml"));
                 fxmlLoader.setController(this);
                 try {
-                    anchorPane = fxmlLoader.load();
+                    fxmlLoader.load();
                     setEventHandlers();
                 } catch (IOException e) {
                     e.printStackTrace();
