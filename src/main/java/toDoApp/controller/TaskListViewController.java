@@ -1,5 +1,6 @@
 package toDoApp.controller;
 
+import com.jfoenix.controls.JFXListView;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,11 +10,13 @@ import javafx.scene.image.ImageView;
 import toDoApp.model.task.Task;
 import toDoApp.model.task.TaskRepo;
 
+import java.util.List;
+
 public class TaskListViewController {
     @FXML
     private ImageView addTaskBtn;
     @FXML
-    private ListView<Task> taskListView;
+    private JFXListView<Task> taskListView;
 
     ObservableList<Task> taskObservableList;
 
@@ -21,7 +24,7 @@ public class TaskListViewController {
     private StringProperty projectId;
 
     public TaskListViewController() {
-        taskObservableList = FXCollections.observableList(TaskRepo.getTasksFromProject("5e1e2734d8895c81e963b59e"));
+        taskObservableList = FXCollections.observableArrayList();
     }
 
     public void setTaskObservableList(ObservableList<Task> taskObservableList) {
@@ -33,4 +36,17 @@ public class TaskListViewController {
         taskListView.setItems(taskObservableList);
         taskListView.setCellFactory(taskList -> new TaskListViewCell());
     }
+
+    public void setProjectTaskList(String projectId){
+        List<Task> list = TaskRepo.getTasksFromProject(projectId);
+        if(list.isEmpty()){
+            taskObservableList.clear();
+        }
+        else {
+            taskObservableList.clear();
+            taskObservableList.addAll(list);
+        }
+    }
+
+
 }

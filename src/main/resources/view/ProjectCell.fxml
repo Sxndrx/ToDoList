@@ -13,14 +13,14 @@
             <Insets left="5.0" />
          </padding>
       </Label>
-      <ImageView fx:id="showMoreBtn" fitHeight="20.0" fitWidth="20.0" preserveRatio="true" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="2.5">
-         <image>
-            <Image url="@/icons/baseline_more_vert_black_48dp.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="deleteBtn" fitHeight="20.0" fitWidth="20.0" preserveRatio="true" AnchorPane.rightAnchor="0.5" AnchorPane.topAnchor="2.5">
+      <ImageView fx:id="deleteBtn" fitHeight="20.0" fitWidth="20.0" preserveRatio="true" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="2.5">
          <image>
             <Image url="@/icons/sharp_delete_forever_black_18dp.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="showMoreBtn" fitHeight="20.0" fitWidth="20.0" preserveRatio="true" AnchorPane.rightAnchor="0.5" AnchorPane.topAnchor="2.5">
+         <image>
+            <Image url="@/icons/baseline_more_vert_black_48dp.png" />
          </image>
       </ImageView>
    </children>

@@ -54,4 +54,8 @@ public class ProjectListViewController {
         stage.show();
 
     }
+
+    public JFXListView<Project> getProjectsListView() {
+        return projectsListView;
+    }
 }

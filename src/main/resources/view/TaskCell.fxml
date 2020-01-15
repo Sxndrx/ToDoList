@@ -9,37 +9,36 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane fx:id="anchorPane" prefHeight="80.0" prefWidth="450.0" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" prefHeight="50.0" prefWidth="430.0" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="80.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefHeight="40.0" prefWidth="450.0">
+            <HBox prefHeight="25.0" prefWidth="430.0">
                <children>
-                  <Label fx:id="nameLabel" alignment="CENTER" prefHeight="40.0" prefWidth="405.0" styleClass="labDark" text="Task Name" />
-                  <ImageView fx:id="deleteBtn" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <Label fx:id="nameLabel" alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="405.0" styleClass="labDark" text="Task Name" />
+                  <ImageView fx:id="deleteBtn" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/icons/sharp_delete_forever_black_18dp.png" />
                      </image>
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets right="2.5" top="2.5" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="showMoreBtn" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="showMoreBtn" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/icons/baseline_more_vert_black_48dp.png" />
                      </image>
                      <HBox.margin>
-                        <Insets top="5.0" />
+                        <Insets right="2.5" top="2.5" />
                      </HBox.margin>
                   </ImageView>
                </children>
             </HBox>
-            <HBox prefHeight="40.0" prefWidth="450.0">
+            <HBox prefHeight="25.0" prefWidth="420.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="87.0" styleClass="labDark" text="Due Date: " />
-                  <Label fx:id="dueDateLabel" prefHeight="40.0" prefWidth="233.0" styleClass="labDark" text="Date" />
-                  <JFXCheckBox fx:id="doneBtn" checkedColor="#4f83cc" prefHeight="40.0" prefWidth="133.0" text="Done" unCheckedColor="#424242" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="87.0" styleClass="labDark" text="Due Date: " />
+                  <Label fx:id="dueDateLabel" prefHeight="25.0" prefWidth="233.0" styleClass="labDark"/>
+                  <JFXCheckBox fx:id="doneBtn" checkedColor="#4f83cc" prefHeight="25.0" prefWidth="133.0" text="Done" unCheckedColor="#424242" />
                </children>
             </HBox>
          </children>

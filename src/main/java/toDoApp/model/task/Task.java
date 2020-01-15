@@ -33,7 +33,7 @@ public class Task {
 
     public Task(TaskEntity taskEntity) {
         id = new SimpleStringProperty(taskEntity.getId());
-        title = new SimpleStringProperty(taskEntity.getId());
+        title = new SimpleStringProperty(taskEntity.getTitle());
         if (taskEntity.getDescription() != null) {
             description = new SimpleStringProperty(taskEntity.getDescription());
         }

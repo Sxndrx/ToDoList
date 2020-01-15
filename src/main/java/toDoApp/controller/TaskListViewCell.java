@@ -44,8 +44,19 @@ public class TaskListViewCell extends ListCell<Task> {
                     e.printStackTrace();
                 }
             }
+            setCellGraphic(item);
             setText(null);
             setGraphic(anchorPane);
+        }
+    }
+
+    private void setCellGraphic(Task task){
+        nameLabel.setText(task.getTitle());
+        if(task.dateStringProperty()!=null){
+            dueDateLabel.setText(task.getDateString());
+        }
+        else {
+            dueDateLabel.setText("without time limit");
         }
     }
 }
