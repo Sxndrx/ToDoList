@@ -1,6 +1,8 @@
 .stdButton{
     -fx-text-fill: #efefef;
     -fx-background-color: #002f6c;
+    -fx-pref-height: 30;
+    -fx-pref-width: 60;
 }
 .upperBar{
     -fx-background-color: #01579b;
@@ -15,8 +17,14 @@
     -fx-text-fill: #1b1b1b;
     -fx-font-size: 14;
 }
+.labDarkSmall{
+    -fx-text-fill: #1b1b1b;
+    -fx-font-size: 12;
+}
 
 .iconSimpleBlack {
     -fx-fit-to-width: 40;
     -fx-fit-to-width: 40;
 }
+
+

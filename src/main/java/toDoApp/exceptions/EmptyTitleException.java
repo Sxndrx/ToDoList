@@ -1,4 +1,4 @@
-package toDoApp.controller.exceptions;
+package toDoApp.exceptions;
 
 public class EmptyTitleException extends Exception{
 

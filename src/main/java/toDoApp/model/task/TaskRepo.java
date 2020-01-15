@@ -15,6 +15,7 @@ public class TaskRepo {
     public static void removeTasksFromProject(String projectId){
         for(Task task : getTasksFromProject(projectId)){
             removeTask(task);
+            taskDao.removeTaskEntity(task.toTaskEntity());
         }
     }
 
@@ -48,6 +49,7 @@ public class TaskRepo {
         List<Task> subTasks = getSubTasksFromParent(task);
         for(Task subTask: subTasks){
             removeTask(subTask);
+            taskDao.removeTaskEntity(subTask.toTaskEntity());
         }
     }
 

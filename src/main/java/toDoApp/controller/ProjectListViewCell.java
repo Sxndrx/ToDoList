@@ -1,12 +1,18 @@
 package toDoApp.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import toDoApp.model.project.Project;
 import toDoApp.model.project.ProjectRepo;
 
@@ -22,10 +28,11 @@ public class ProjectListViewCell extends ListCell<Project> {
     private ImageView deleteBtn;
 
     @FXML
-    private ImageView editBtn;
+    private ImageView showMoreBtn;
 
     @FXML
     private AnchorPane anchorPane;
+
 
     private FXMLLoader fxmlLoader;
 
@@ -58,9 +65,9 @@ public class ProjectListViewCell extends ListCell<Project> {
 
             nameLabel.setText(item.getTitle());
             if(item.getPriority()){
-                this.setStyle("-fx-background-color: #efdca5");
+                anchorPane.setStyle("-fx-background-color: #efdca5");
             }else{
-                this.setStyle("-fx-background-color: #efefef");
+                anchorPane.setStyle("-fx-background-color: #efefef");
             }
 
             setText(null);
@@ -72,6 +79,7 @@ public class ProjectListViewCell extends ListCell<Project> {
 
     private void setEventHandlers(){
         deleteBtn.addEventHandler(MouseEvent.MOUSE_CLICKED , event -> deleteProject());
+        showMoreBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> showMore());
     }
 
     private void deleteProject(){
@@ -79,6 +87,24 @@ public class ProjectListViewCell extends ListCell<Project> {
         System.out.println(project.getTitle());
         getListView().getItems().remove(project);
         ProjectRepo.removeProject(project);
+    }
+
+    private void showMore(){
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProjectForm.fxml"));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+            ProjectFormController controller = fxmlLoader.getController();
+            controller.setProjects(getListView().getItems());
+            controller.setSelectedProject(getListView().getSelectionModel().getSelectedItem());
+            controller.setAddNew(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(root));
+        stage.setTitle("TO DO LIST");
+        stage.show();
     }
 
 }

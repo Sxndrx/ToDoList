@@ -28,9 +28,9 @@ public class ProjectRepo {
         });
     }
     public static void removeProject(Project project){
-        TaskRepo.removeTasksFromProject(project.getId());
-        ProjectEntity projectEntity = project.toProjectEntity();
         Platform.runLater(()->{
+            TaskRepo.removeTasksFromProject(project.getId());
+            ProjectEntity projectEntity = project.toProjectEntity();
             projectDao.removeProjectEntity(projectEntity);
         });
     }

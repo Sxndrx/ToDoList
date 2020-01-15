@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import toDoApp.model.project.Project;
-import toDoApp.database.project.ProjectDao;
 import toDoApp.model.project.ProjectRepo;
 
 import java.io.IOException;
@@ -40,19 +39,19 @@ public class ProjectListViewController {
 
     private void openAddProjectWindow(){
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/AddProjectForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProjectForm.fxml"));
         Parent root = null;
         try {
             root = fxmlLoader.load();
-            AddProjectFormController controller = fxmlLoader.getController();
+            ProjectFormController controller = fxmlLoader.getController();
             controller.setProjects(projectObservableList);
+            controller.setAddNew(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
         stage.setScene(new Scene(root));
         stage.setTitle("TO DO LIST");
         stage.show();
-
     }
 
     public JFXListView<Project> getProjectsListView() {

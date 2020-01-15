@@ -45,7 +45,9 @@ public class Task {
 //        if (notify.getValue()) {
 //            notifyDateString = new SimpleStringProperty(taskEntity.getNotificationDate().toString());
 //        }
-        projectId = new SimpleStringProperty(taskEntity.getProjectEntity().getId());
+        if(projectId!=null){
+            projectId = new SimpleStringProperty(taskEntity.getProjectEntity().getId());
+        }
         if(taskEntity.getParentTaskEntity()!=null){
             parentTaskId = new SimpleStringProperty(taskEntity.getParentTaskEntity().getId());
         }
@@ -66,14 +68,15 @@ public class Task {
                 e.printStackTrace();
             }
         }
-        ;
         taskEntity.setPriority(priority.get());
-        taskEntity.setNotify(notify.get());
-        if (notify.getValue()) {
-            try {
-                taskEntity.setNotificationDate(new SimpleDateFormat().parse(notifyDateString.getValue()));
-            } catch (ParseException e) {
-                e.printStackTrace();
+        if(notify!=null){
+            taskEntity.setNotify(notify.get());
+            if (notify.getValue()) {
+                try {
+                    taskEntity.setNotificationDate(new SimpleDateFormat().parse(notifyDateString.getValue()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
