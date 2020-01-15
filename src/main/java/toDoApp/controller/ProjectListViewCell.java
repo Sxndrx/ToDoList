@@ -16,13 +16,13 @@ import java.io.IOException;
 public class ProjectListViewCell extends ListCell<Project> {
 
     @FXML
-    private Label projectNameLabel;
+    private Label nameLabel;
 
     @FXML
-    private ImageView deleteProjectBtn;
+    private ImageView deleteBtn;
 
     @FXML
-    private ImageView editProjectBtn;
+    private ImageView editBtn;
 
     @FXML
     private AnchorPane anchorPane;
@@ -52,11 +52,11 @@ public class ProjectListViewCell extends ListCell<Project> {
                     e.printStackTrace();
                 }
             }
-            if(projectNameLabel==null){
-                projectNameLabel = new Label();
+            if(nameLabel ==null){
+                nameLabel = new Label();
             }
 
-            projectNameLabel.setText(item.getTitle());
+            nameLabel.setText(item.getTitle());
             if(item.getPriority()){
                 this.setStyle("-fx-background-color: #efdca5");
             }else{
@@ -71,7 +71,7 @@ public class ProjectListViewCell extends ListCell<Project> {
     }
 
     private void setEventHandlers(){
-        deleteProjectBtn.addEventHandler(MouseEvent.MOUSE_CLICKED , event -> deleteProject());
+        deleteBtn.addEventHandler(MouseEvent.MOUSE_CLICKED , event -> deleteProject());
     }
 
     private void deleteProject(){

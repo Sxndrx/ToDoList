@@ -1,11 +1,13 @@
 package toDoApp.controller;
 
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import toDoApp.model.task.Task;
+import toDoApp.model.task.TaskRepo;
 
 public class TaskListViewController {
     @FXML
@@ -15,8 +17,11 @@ public class TaskListViewController {
 
     ObservableList<Task> taskObservableList;
 
+
+    private StringProperty projectId;
+
     public TaskListViewController() {
-        taskObservableList = FXCollections.emptyObservableList();
+        taskObservableList = FXCollections.observableList(TaskRepo.getTasksFromProject("5e1e2734d8895c81e963b59e"));
     }
 
     public void setTaskObservableList(ObservableList<Task> taskObservableList) {

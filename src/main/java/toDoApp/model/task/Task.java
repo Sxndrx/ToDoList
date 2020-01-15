@@ -37,14 +37,14 @@ public class Task {
         if (taskEntity.getDescription() != null) {
             description = new SimpleStringProperty(taskEntity.getDescription());
         }
-        if (taskEntity.getDueDate() != null) {
-            dateString = new SimpleStringProperty(taskEntity.getDueDate().toString());
-        }
+//        if (taskEntity.getDueDate() != null) {
+//            dateString = new SimpleStringProperty(taskEntity.getDueDate().toString());
+//        }
         priority = new SimpleBooleanProperty(taskEntity.getPriority().booleanValue());
-        notify = new SimpleBooleanProperty(taskEntity.getNotify().booleanValue());
-        if (notify.getValue()) {
-            notifyDateString = new SimpleStringProperty(taskEntity.getNotificationDate().toString());
-        }
+//        notify = new SimpleBooleanProperty(taskEntity.getNotify().booleanValue());
+//        if (notify.getValue()) {
+//            notifyDateString = new SimpleStringProperty(taskEntity.getNotificationDate().toString());
+//        }
         projectId = new SimpleStringProperty(taskEntity.getProjectEntity().getId());
         if(taskEntity.getParentTaskEntity()!=null){
             parentTaskId = new SimpleStringProperty(taskEntity.getParentTaskEntity().getId());
