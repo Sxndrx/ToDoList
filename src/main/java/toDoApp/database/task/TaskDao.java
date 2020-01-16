@@ -6,6 +6,7 @@ import toDoApp.Utils.HibernateUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -59,7 +60,8 @@ public class TaskDao implements ITaskDao {
 
     @Override
     public List<TaskEntity> getAllTaskEntitiesFromProject(String projectId) {
-        String query = "db.TaskEntity.find({'projectEntity_id' : ObjectId(\"" + projectId + "\")})";
+        String query = "db.TaskEntity.find({$and:[{'projectEntity_id' : ObjectId(\"" + projectId + "\")}," +
+                "{'parentTaskEntity_id':{$exists:false}}] })";
         return getByQuery(query);
     }
 
