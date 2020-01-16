@@ -51,9 +51,9 @@ public class TaskListViewController {
 
     private void setTaskObservableList() {
         List<Task> list;
-        if(project!=null) {
+        if (project != null) {
             list = TaskRepo.getTasksFromProject(project.getId());
-        }else{
+        } else {
             list = TaskRepo.getSubTasksFromParent(parentTask);
         }
         if (list.isEmpty()) {
@@ -66,15 +66,15 @@ public class TaskListViewController {
 
     public void updateTaskListFromProject(Project project) {
         this.project = project;
-        if(project==null){
+        if (project == null) {
             setHeader("");
-        }else{
+        } else {
             setHeader(project.getTitle());
             setTaskObservableList();
         }
     }
 
-    public void setHeader(String text){
+    public void setHeader(String text) {
         parentName.setText(text);
     }
 
@@ -90,12 +90,9 @@ public class TaskListViewController {
             root = fxmlLoader.load();
             TaskFormController taskFormController = fxmlLoader.getController();
             if(project!=null){
-                System.out.println(project.getId());
                 taskFormController.setProject(project);
-            }else if (parentTask!=null){
+            }else if (parentTask != null) {
                 taskFormController.setParentTask(parentTask);
-            }else {
-                throw new NullPointerException();
             }
             taskFormController.setTasks(taskObservableList);
 
@@ -104,7 +101,7 @@ public class TaskListViewController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             DialogUtils.showSelectProject(pane);
         }
     }
@@ -112,5 +109,7 @@ public class TaskListViewController {
     public void setParentTask(Task parentTask) {
         this.parentTask = parentTask;
         setTaskObservableList();
+        setHeader(parentTask.getTitle());
+        project = parentTask.getProject();
     }
 }

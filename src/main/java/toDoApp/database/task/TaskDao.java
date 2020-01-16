@@ -1,12 +1,12 @@
 package toDoApp.database.task;
 
-import org.bson.types.ObjectId;
 import org.hibernate.Session;
 import toDoApp.Utils.HibernateUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import java.time.LocalDate;
 import java.util.List;
 
 public class TaskDao implements ITaskDao {
@@ -60,18 +60,22 @@ public class TaskDao implements ITaskDao {
     @Override
     public List<TaskEntity> getAllTaskEntitiesFromProject(String projectId) {
         String query = "db.TaskEntity.find({'projectEntity_id' : ObjectId(\"" + projectId + "\")})";
-        EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        List<TaskEntity> taskEntities = entityManager.createNativeQuery(query, TaskEntity.class).getResultList();
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        return taskEntities;
+        return getByQuery(query);
     }
 
     @Override
     public List<TaskEntity> getAllTaskEntitiesFromParentTask(String parentId) {
         String query = "db.TaskEntity.find({'parentTaskEntity_id' : ObjectId(\"" + parentId + "\")})";
+        return getByQuery(query);
+    }
+
+    @Override
+    public List<TaskEntity> getTaskByDate(LocalDate date) {
+        String query = "db.TaskEntity.find({'dueDate':" + date.toString() + "})";
+        return getByQuery(query);
+    }
+
+    private List<TaskEntity> getByQuery(String query){
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();

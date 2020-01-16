@@ -15,7 +15,6 @@ public class Task {
     private ObjectProperty<LocalDate> date;
     private BooleanProperty priority;
     private BooleanProperty notify;
-    private ObjectProperty<LocalDate> notifyDate;
     private BooleanProperty done;
     private ObjectProperty<Project> project;
     private ObjectProperty<Task> parentTask;
@@ -27,7 +26,6 @@ public class Task {
         date = new SimpleObjectProperty<>();
         priority = new SimpleBooleanProperty();
         notify = new SimpleBooleanProperty();
-        notifyDate = new SimpleObjectProperty<>();
         project = new SimpleObjectProperty<>();
         parentTask = new SimpleObjectProperty<>();
         done = new SimpleBooleanProperty(false);
@@ -45,13 +43,8 @@ public class Task {
         }
         priority = new SimpleBooleanProperty(taskEntity.getPriority().booleanValue());
         notify = new SimpleBooleanProperty(taskEntity.getNotify().booleanValue());
-        if (taskEntity.getNotificationDate()!=null) {
-            notifyDate = new SimpleObjectProperty<>(taskEntity.getNotificationDate());
-        }
-        done = new SimpleBooleanProperty(taskEntity.getDone());
-        if(taskEntity.getProjectEntity()!=null){
+               done = new SimpleBooleanProperty(taskEntity.getDone());
             project = new SimpleObjectProperty<>(new Project(taskEntity.getProjectEntity()));
-        }
         if(taskEntity.getParentTaskEntity()!=null){
             parentTask = new SimpleObjectProperty<>(new Task(taskEntity.getParentTaskEntity()));
         }
@@ -72,13 +65,9 @@ public class Task {
         if(notify!=null){
             taskEntity.setNotify(notify.get());
         }
-        if (notifyDate!=null) {
-            taskEntity.setNotificationDate(notifyDate.getValue());
-        }
         taskEntity.setDone(done.getValue());
-        if(project!=null){
-            taskEntity.setProjectEntity(project.get().toProjectEntity());
-        }else if(parentTask!=null){
+        taskEntity.setProjectEntity(project.get().toProjectEntity());
+        if(parentTask!=null && parentTask.get()!=null){
             taskEntity.setParentTaskEntity(parentTask.get().toTaskEntity());
         }
 
@@ -163,18 +152,6 @@ public class Task {
 
     public boolean isNotify() {
         return notify.get();
-    }
-
-    public LocalDate getNotifyDate() {
-        return notifyDate.get();
-    }
-
-    public ObjectProperty<LocalDate> notifyDateProperty() {
-        return notifyDate;
-    }
-
-    public void setNotifyDate(LocalDate notifyDate) {
-        this.notifyDate.set(notifyDate);
     }
 
     public Project getProject() {

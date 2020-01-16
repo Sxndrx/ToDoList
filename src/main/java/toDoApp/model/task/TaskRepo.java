@@ -5,6 +5,7 @@ import toDoApp.database.task.ITaskDao;
 import toDoApp.database.task.TaskDao;
 import toDoApp.database.task.TaskEntity;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,14 +21,12 @@ public class TaskRepo {
 
     public static List<Task> getSubTasksFromParent(Task parent){
         List<TaskEntity> subTasksEntities = taskDao.getAllTaskEntitiesFromParentTask(parent.getId());
-        List<Task> subTasks = getTaskListFromTaskEntities(subTasksEntities);
-        return subTasks;
+        return getTaskListFromTaskEntities(subTasksEntities);
     }
 
     public static List<Task> getTasksFromProject(String projectId){
         List<TaskEntity> taskEntities = taskDao.getAllTaskEntitiesFromProject(projectId);
-        List<Task> tasks = getTaskListFromTaskEntities(taskEntities);
-        return tasks;
+        return getTaskListFromTaskEntities(taskEntities);
     }
 
     private static List<Task> getTaskListFromTaskEntities(List<TaskEntity> taskEntities){
@@ -55,4 +54,13 @@ public class TaskRepo {
         taskDao.updateTaskEntity(task.toTaskEntity());
     }
 
+    public static List<Task> getTodayTasks() {
+        List<TaskEntity> list = taskDao.getTaskByDate(LocalDate.now());
+        return getTaskListFromTaskEntities(list);
+    }
+
+    public static List<Task> getTomorrowTasks() {
+        List<TaskEntity> list = taskDao.getTaskByDate(LocalDate.now().plusDays(1));
+        return getTaskListFromTaskEntities(list);
+    }
 }

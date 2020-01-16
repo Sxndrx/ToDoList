@@ -21,7 +21,6 @@ public class TaskEntity {
     private LocalDate dueDate;
     private Boolean priority;
     private Boolean notify;
-    private LocalDate notificationDate;
     private Boolean done;
 
     @ManyToOne
@@ -75,14 +74,6 @@ public class TaskEntity {
 
     public void setNotify(Boolean notify) {
         this.notify = notify;
-    }
-
-    public LocalDate getNotificationDate() {
-        return notificationDate;
-    }
-
-    public void setNotificationDate(LocalDate notificationDate) {
-        this.notificationDate = notificationDate;
     }
 
     public Boolean getDone() {

@@ -85,7 +85,6 @@ public class TaskListViewCell extends ListCell<Task> implements IMyListCell {
             root = fxmlLoader.load();
             TaskListViewController controller = fxmlLoader.getController();
             controller.setParentTask(getListView().getSelectionModel().getSelectedItem());
-            controller.setHeader(getListView().getSelectionModel().getSelectedItem().getTitle());
         } catch (IOException e) {
             e.printStackTrace();
         }

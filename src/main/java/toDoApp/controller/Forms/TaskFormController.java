@@ -129,13 +129,11 @@ public class TaskFormController implements IFormController {
         task.setPriority(priorityButton.isSelected());
         task.setNotify(notifyButton.isSelected());
         task.setDate(datePicker.getValue());
-        task.setNotifyDate(datePicker.getValue().minusDays(1));
         if(addNew){
             if(parentTask!=null){
                 task.setParentTask(parentTask);
-            }else {
-                task.setProject(project);
             }
+                task.setProject(project);
         }
 
     }

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import toDoApp.Utils.HibernateUtil;
 
@@ -17,11 +18,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent welcomePage =  FXMLLoader.load(getClass().getResource("/view/WelcomePage.fxml"));
         stage.setTitle("TO DO LIST");
-        stage.setScene(new Scene(welcomePage));
-        stage.show();
         Parent root = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
         stage.setScene(new Scene(root));
+//        Image applicationIcon = new Image(getClass().getResourceAsStream("/icons/icons8-edit-48.png"));
+//        stage.getIcons().add(applicationIcon);
+        stage.show();
     }
 }

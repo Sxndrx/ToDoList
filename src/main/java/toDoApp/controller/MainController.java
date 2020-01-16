@@ -7,6 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import toDoApp.controller.ListViews.ProjectListViewController;
 import toDoApp.controller.ListViews.TaskListViewController;
 import toDoApp.model.project.Project;
+import toDoApp.model.task.Task;
+import toDoApp.model.task.TaskRepo;
 
 import java.util.List;
 
@@ -32,7 +34,9 @@ public class MainController {
         projectList.getSelectionModel().selectFirst();
     }
 
-    private void checkToNotificate(){
+    private void checkToNotifications(){
+        List<Task> todayTasks = TaskRepo.getTodayTasks();
+        List<Task> tomorrowTasks = TaskRepo.getTomorrowTasks();
     }
 
 
