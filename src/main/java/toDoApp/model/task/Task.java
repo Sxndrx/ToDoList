@@ -3,7 +3,6 @@ package toDoApp.model.task;
 import javafx.beans.property.*;
 import toDoApp.database.task.TaskEntity;
 import toDoApp.model.project.Project;
-import toDoApp.model.project.ProjectRepo;
 
 import java.time.LocalDate;
 
@@ -43,9 +42,9 @@ public class Task {
         }
         priority = new SimpleBooleanProperty(taskEntity.getPriority().booleanValue());
         notify = new SimpleBooleanProperty(taskEntity.getNotify().booleanValue());
-               done = new SimpleBooleanProperty(taskEntity.getDone());
-            project = new SimpleObjectProperty<>(new Project(taskEntity.getProjectEntity()));
-        if(taskEntity.getParentTaskEntity()!=null){
+        done = new SimpleBooleanProperty(taskEntity.getDone());
+        project = new SimpleObjectProperty<>(new Project(taskEntity.getProjectEntity()));
+        if (taskEntity.getParentTaskEntity() != null) {
             parentTask = new SimpleObjectProperty<>(new Task(taskEntity.getParentTaskEntity()));
         }
     }
@@ -62,12 +61,12 @@ public class Task {
             taskEntity.setDueDate(date.getValue());
         }
         taskEntity.setPriority(priority.get());
-        if(notify!=null){
+        if (notify != null) {
             taskEntity.setNotify(notify.get());
         }
         taskEntity.setDone(done.getValue());
         taskEntity.setProjectEntity(project.get().toProjectEntity());
-        if(parentTask!=null && parentTask.get()!=null){
+        if (parentTask != null && parentTask.get() != null) {
             taskEntity.setParentTaskEntity(parentTask.get().toTaskEntity());
         }
 

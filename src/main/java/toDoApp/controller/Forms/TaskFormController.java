@@ -36,7 +36,6 @@ public class TaskFormController implements IFormController {
     private Project project;
     private Task parentTask;
     private boolean addNew = true;
-    private boolean subTask = false;
     private ObservableList<Task> tasks;
 
     @FXML

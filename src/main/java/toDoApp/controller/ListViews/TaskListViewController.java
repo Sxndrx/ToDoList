@@ -51,7 +51,7 @@ public class TaskListViewController {
 
     private void setTaskObservableList() {
         List<Task> list;
-        if (project != null) {
+        if (parentTask == null) {
             list = TaskRepo.getTasksFromProject(project.getId());
         } else {
             list = TaskRepo.getSubTasksFromParent(parentTask);
@@ -89,9 +89,8 @@ public class TaskListViewController {
         try {
             root = fxmlLoader.load();
             TaskFormController taskFormController = fxmlLoader.getController();
-            if(project!=null){
-                taskFormController.setProject(project);
-            }else if (parentTask != null) {
+            taskFormController.setProject(project);
+            if (parentTask != null) {
                 taskFormController.setParentTask(parentTask);
             }
             taskFormController.setTasks(taskObservableList);
