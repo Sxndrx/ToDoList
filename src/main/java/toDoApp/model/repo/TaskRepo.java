@@ -12,44 +12,46 @@ public class TaskRepo {
 
     private static ITaskDao taskDao = new TaskDao();
 
-    public static void removeTasksFromProject(String projectId){
-        for(Task task : getTasksFromProject(projectId)){
+    public static void removeTasksFromProject(String projectId) {
+        for (Task task : getTasksFromProject(projectId)) {
             removeTask(task);
         }
     }
 
-    public static List<Task> getSubTasksFromParent(Task parent){
+    public static List<Task> getSubTasksFromParent(Task parent) {
         List<TaskEntity> subTasksEntities = taskDao.getAllTaskEntitiesFromParentTask(parent.getId());
         return getTaskListFromTaskEntities(subTasksEntities);
     }
 
-    public static List<Task> getTasksFromProject(String projectId){
+    public static List<Task> getTasksFromProject(String projectId) {
         List<TaskEntity> taskEntities = taskDao.getAllTaskEntitiesFromProject(projectId);
         return getTaskListFromTaskEntities(taskEntities);
     }
 
-    private static List<Task> getTaskListFromTaskEntities(List<TaskEntity> taskEntities){
+    private static List<Task> getTaskListFromTaskEntities(List<TaskEntity> taskEntities) {
         List<Task> tasks = new LinkedList<>();
-        for(TaskEntity taskEntity : taskEntities){
+        for (TaskEntity taskEntity : taskEntities) {
             tasks.add(new Task(taskEntity));
         }
         return tasks;
     }
 
-    public static void addTask(Task task){
+    public static void addTask(Task task) {
         TaskEntity taskEntity = task.toTaskEntity();
-            taskDao.addTaskEntity(taskEntity);
-            task.setId(taskEntity.getId());
+        taskDao.addTaskEntity(taskEntity);
+        task.setId(taskEntity.getId());
     }
-    public static void removeTask(Task task){
+
+    public static void removeTask(Task task) {
         List<Task> subTasks = getSubTasksFromParent(task);
-        for(Task subTask: subTasks){
+        for (Task subTask : subTasks) {
             removeTask(subTask);
         }
         taskDao.removeTaskEntity(task.toTaskEntity());
 
     }
-    public static void updateTask(Task task){
+
+    public static void updateTask(Task task) {
         taskDao.updateTaskEntity(task.toTaskEntity());
     }
 
@@ -59,7 +61,7 @@ public class TaskRepo {
         return getTaskListFromTaskEntities(list);
     }
 
-    public static Task getNextTaskNotification(){
+    public static Task getNextTaskNotification() {
         return new Task(taskDao.getNextTaskEntityNotification());
     }
 

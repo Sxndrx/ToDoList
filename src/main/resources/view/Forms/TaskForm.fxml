@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextArea?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTimePicker?>
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="500.0" prefWidth="400.0" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toDoApp.controller.Forms.TaskFormController">
-   <children>
-      <AnchorPane prefHeight="40.0" prefWidth="400.0" styleClass="upperBar">
-         <children>
-            <Label fx:id="taskName" prefHeight="40.0" prefWidth="400.0" styleClass="labLight" text="Create New Task" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <JFXButton fx:id="editBtn" prefHeight="40.0" prefWidth="80.0" styleClass="stdButton" text="Edit" visible="false" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="5" />
-         </children>
-      </AnchorPane>
-      <JFXTextField fx:id="title" focusColor="#4f83cc" layoutY="40.0" prefHeight="40.0" prefWidth="380.0" promptText="Title" unFocusColor="#424242" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="45.0" />
-      <JFXTextArea fx:id="description" focusColor="#4f83cc" layoutX="10.0" layoutY="93.0" prefHeight="139.0" prefWidth="380.0" promptText="Description" unFocusColor="#424242" AnchorPane.leftAnchor="10.0" />
-      <JFXDatePicker fx:id="datePicker" defaultColor="#4f83cc" layoutX="10.0" layoutY="260.0" prefHeight="40.0" prefWidth="190.0" promptText="DueDate" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="260.0" />
-      <JFXToggleButton fx:id="priorityButton" layoutX="12.0" layoutY="425.0" text="High priority" toggleColor="#002f6c" toggleLineColor="#4f83cc" unToggleLineColor="#6d6d6d" />
-      <JFXToggleButton fx:id="notifyButton" layoutX="10.0" layoutY="311.0" prefHeight="10.0" prefWidth="157.0" text="Notify before" toggleColor="#002f6c" toggleLineColor="#4f83cc" unToggleLineColor="#6d6d6d" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="311.0" />
-      <JFXButton fx:id="saveBtn" layoutX="313.0" layoutY="355.0" prefHeight="40.0" prefWidth="80.0" styleClass="stdButton" text="Save" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="25.0" />
-      <JFXTimePicker fx:id="timePicker" defaultColor="#4f83cc" layoutX="201.0" layoutY="260.0" prefHeight="40.0" prefWidth="190.0" promptText="Due Time" AnchorPane.rightAnchor="10.0" />
-      <JFXDatePicker fx:id="notDatePicker"  disable="true" defaultColor="#4f83cc" layoutX="10.0" layoutY="371.0" prefHeight="40.0" prefWidth="190.0" promptText="Notification Date" AnchorPane.leftAnchor="10.0" />
-      <JFXTimePicker fx:id="notTimePicker" disable="true" defaultColor="#4f83cc" layoutX="198.0" layoutY="371.0" prefHeight="40.0" prefWidth="190.0" promptText="Notification Time" AnchorPane.rightAnchor="10.0" />
-   </children>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="400.0" stylesheets="@/Style.css"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="toDoApp.controller.Forms.TaskFormController">
+    <children>
+        <AnchorPane prefHeight="40.0" prefWidth="400.0" styleClass="upperBar">
+            <children>
+                <Label fx:id="taskName" prefHeight="40.0" prefWidth="400.0" styleClass="labLight" text="Create New Task"
+                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                       AnchorPane.topAnchor="0.0"/>
+                <JFXButton fx:id="editBtn" prefHeight="40.0" prefWidth="80.0" styleClass="stdButton" text="Edit"
+                           visible="false" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="5"/>
+            </children>
+        </AnchorPane>
+        <JFXTextField fx:id="title" focusColor="#4f83cc" layoutY="40.0" prefHeight="40.0" prefWidth="380.0"
+                      promptText="Title" unFocusColor="#424242" AnchorPane.leftAnchor="10.0"
+                      AnchorPane.topAnchor="45.0"/>
+        <JFXTextArea fx:id="description" focusColor="#4f83cc" layoutX="10.0" layoutY="93.0" prefHeight="139.0"
+                     prefWidth="380.0" promptText="Description" unFocusColor="#424242" AnchorPane.leftAnchor="10.0"/>
+        <JFXDatePicker fx:id="datePicker" defaultColor="#4f83cc" layoutX="10.0" layoutY="260.0" prefHeight="40.0"
+                       prefWidth="190.0" promptText="DueDate" AnchorPane.leftAnchor="10.0"
+                       AnchorPane.topAnchor="260.0"/>
+        <JFXToggleButton fx:id="priorityButton" layoutX="12.0" layoutY="425.0" text="High priority"
+                         toggleColor="#002f6c" toggleLineColor="#4f83cc" unToggleLineColor="#6d6d6d"/>
+        <JFXToggleButton fx:id="notifyButton" layoutX="10.0" layoutY="311.0" prefHeight="10.0" prefWidth="157.0"
+                         text="Notify before" toggleColor="#002f6c" toggleLineColor="#4f83cc"
+                         unToggleLineColor="#6d6d6d" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="311.0"/>
+        <JFXButton fx:id="saveBtn" layoutX="313.0" layoutY="355.0" prefHeight="40.0" prefWidth="80.0"
+                   styleClass="stdButton" text="Save" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="25.0"/>
+        <JFXTimePicker fx:id="timePicker" defaultColor="#4f83cc" layoutX="201.0" layoutY="260.0" prefHeight="40.0"
+                       prefWidth="190.0" promptText="Due Time" AnchorPane.rightAnchor="10.0"/>
+        <JFXDatePicker fx:id="notDatePicker" disable="true" defaultColor="#4f83cc" layoutX="10.0" layoutY="371.0"
+                       prefHeight="40.0" prefWidth="190.0" promptText="Notification Date" AnchorPane.leftAnchor="10.0"/>
+        <JFXTimePicker fx:id="notTimePicker" disable="true" defaultColor="#4f83cc" layoutX="198.0" layoutY="371.0"
+                       prefHeight="40.0" prefWidth="190.0" promptText="Notification Time"
+                       AnchorPane.rightAnchor="10.0"/>
+    </children>
 </AnchorPane>

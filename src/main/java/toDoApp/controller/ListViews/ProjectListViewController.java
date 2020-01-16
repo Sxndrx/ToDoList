@@ -19,28 +19,25 @@ import java.io.IOException;
 
 public class ProjectListViewController {
 
+    ObservableList<Project> projectObservableList;
     @FXML
     private JFXListView<Project> projectsListView;
-
     @FXML
     private ImageView imgAdd;
 
-    ObservableList<Project> projectObservableList;
-
     public ProjectListViewController() {
-       projectObservableList = ProjectRepo.getAllProjects();
+        projectObservableList = ProjectRepo.getAllProjects();
     }
 
     @FXML
     void initialize() {
-       projectsListView.setItems(projectObservableList);
-       projectsListView.setCellFactory(projectListView -> new ProjectListViewCell());
-       imgAdd.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openAddProjectWindow());
+        projectsListView.setItems(projectObservableList);
+        projectsListView.setCellFactory(projectListView -> new ProjectListViewCell());
+        imgAdd.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> openAddProjectWindow());
     }
 
 
-
-    private void openAddProjectWindow(){
+    private void openAddProjectWindow() {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Forms/ProjectForm.fxml"));
         Parent root = null;

@@ -16,8 +16,9 @@ public class NotificationController {
     private Label info;
 
     private Task task;
+
     @FXML
-    void initialize(){
+    void initialize() {
         setEventHandlers();
     }
 
@@ -32,17 +33,17 @@ public class NotificationController {
     }
 
     private void close() {
-       Stage stage = (Stage) okBtn.getScene().getWindow();
-       stage.close();
+        Stage stage = (Stage) okBtn.getScene().getWindow();
+        stage.close();
     }
 
-    public void setTask(Task task){
+    public void setTask(Task task) {
         this.task = task;
         confirmNotification();
         setGraphic();
     }
 
-    private void setGraphic(){
+    private void setGraphic() {
         info.setWrapText(true);
         info.setText("Upcoming task: " +
                 task.getTitle() +

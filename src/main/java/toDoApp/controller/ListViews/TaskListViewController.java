@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class TaskListViewController {
+    ObservableList<Task> taskObservableList;
     @FXML
     private ImageView addTaskBtn;
     @FXML
@@ -32,8 +33,6 @@ public class TaskListViewController {
     private AnchorPane pane;
     @FXML
     private Label parentName;
-
-    ObservableList<Task> taskObservableList;
     private Project project;
     private Task parentTask;
 

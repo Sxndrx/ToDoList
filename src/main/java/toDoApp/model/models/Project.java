@@ -57,48 +57,48 @@ public class Project {
         return id.get();
     }
 
-    public StringProperty idProperty() {
-        return id;
-    }
-
     public void setId(String id) {
         this.id.set(id);
+    }
+
+    public StringProperty idProperty() {
+        return id;
     }
 
     public String getTitle() {
         return title.get();
     }
 
-    public StringProperty titleProperty() {
-        return title;
-    }
-
     public void setTitle(String title) {
         this.title.set(title);
+    }
+
+    public StringProperty titleProperty() {
+        return title;
     }
 
     public String getDescription() {
         return description.get();
     }
 
-    public StringProperty descriptionProperty() {
-        return description;
-    }
-
     public void setDescription(String description) {
         this.description.set(description);
+    }
+
+    public StringProperty descriptionProperty() {
+        return description;
     }
 
     public boolean getPriority() {
         return priority.get();
     }
 
-    public BooleanProperty priorityProperty() {
-        return priority;
-    }
-
     public void setPriority(boolean priority) {
         this.priority.set(priority);
+    }
+
+    public BooleanProperty priorityProperty() {
+        return priority;
     }
 
     @Override

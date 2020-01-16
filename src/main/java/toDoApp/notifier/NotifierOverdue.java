@@ -9,10 +9,10 @@ import java.util.List;
 public class NotifierOverdue extends Notifier {
 
     @Override
-    public void run(){
+    public void run() {
         List<Task> tasks = TaskRepo.getTaskListForNotification();
-        for(Task task : tasks){
-            Platform.runLater(()->showPopUp(task));
+        for (Task task : tasks) {
+            Platform.runLater(() -> showPopUp(task));
             try {
                 Thread.sleep(150);
             } catch (InterruptedException e) {

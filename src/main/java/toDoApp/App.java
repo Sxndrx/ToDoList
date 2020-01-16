@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import toDoApp.controller.NotificationController;
 import toDoApp.notifier.Notifier;
 import toDoApp.notifier.NotifierOverdue;
 

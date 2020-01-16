@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXListView?>
-<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane minWidth="300.0" prefHeight="510.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toDoApp.controller.ListViews.ProjectListViewController">
-   <children>
-      <AnchorPane minWidth="300.0" prefHeight="30.0" styleClass="upperBar" stylesheets="@/Style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <ImageView fx:id="imgAdd" fitHeight="30.0" fitWidth="30.0" opacity="0.9" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-               <image>
-                  <Image url="@/icons/baseline_add_white_48dp.png" />
-               </image>
-               <styleClass>
-                  <String fx:value="iconSimpleBlack" />
-               </styleClass>
-            </ImageView>
-            <Label alignment="CENTER" layoutY="7.0" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="false" prefHeight="26.0" prefWidth="300.0" styleClass="labLight" stylesheets="@/Style.css" text="Projects">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <JFXListView fx:id="projectsListView" layoutY="40.0" minWidth="300.0" prefHeight="470.0" styleClass="list-view" />
-   </children>
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" minWidth="300.0" prefHeight="510.0"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="toDoApp.controller.ListViews.ProjectListViewController">
+    <children>
+        <AnchorPane minWidth="300.0" prefHeight="30.0" styleClass="upperBar" stylesheets="@/Style.css"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fx:id="imgAdd" fitHeight="30.0" fitWidth="30.0" opacity="0.9" pickOnBounds="true"
+                           preserveRatio="true" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                    <image>
+                        <Image url="@/icons/baseline_add_white_48dp.png"/>
+                    </image>
+                    <styleClass>
+                        <String fx:value="iconSimpleBlack"/>
+                    </styleClass>
+                </ImageView>
+                <Label alignment="CENTER" layoutY="7.0" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT"
+                       pickOnBounds="false" prefHeight="26.0" prefWidth="300.0" styleClass="labLight"
+                       stylesheets="@/Style.css" text="Projects">
+                    <font>
+                        <Font size="17.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <JFXListView fx:id="projectsListView" layoutY="40.0" minWidth="300.0" prefHeight="470.0"
+                     styleClass="list-view"/>
+    </children>
 </AnchorPane>

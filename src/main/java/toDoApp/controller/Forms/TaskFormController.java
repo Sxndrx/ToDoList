@@ -86,7 +86,7 @@ public class TaskFormController implements IFormController {
         Utils.validateTitle(title);
         Utils.validateDate(datePicker);
         Utils.validateTime(timePicker);
-        if(notifyButton.isSelected()){
+        if (notifyButton.isSelected()) {
             Utils.validateNotificationDate(notDatePicker, notTimePicker);
         }
     }
@@ -122,7 +122,7 @@ public class TaskFormController implements IFormController {
         datePicker.setValue(selectedTask.getDate().toLocalDate());
         timePicker.setValue(selectedTask.getDate().toLocalTime());
         notifyButton.setSelected(selectedTask.getNotify());
-        if(selectedTask.getNotify()){
+        if (selectedTask.getNotify()) {
             notDatePicker.setValue(selectedTask.getNotificationDate().toLocalDate());
             notTimePicker.setValue(selectedTask.getNotificationDate().toLocalTime());
         }
@@ -140,7 +140,7 @@ public class TaskFormController implements IFormController {
         priorityButton.setDisable(disabled);
         notifyButton.setDisable(disabled);
         saveBtn.setDisable(disabled);
-        if(!disabled){
+        if (!disabled) {
             setDisabledNotificationDate();
         }
     }
@@ -153,7 +153,7 @@ public class TaskFormController implements IFormController {
         }
         task.setPriority(priorityButton.isSelected());
         task.setNotify(notifyButton.isSelected());
-        if(notifyButton.isSelected()){
+        if (notifyButton.isSelected()) {
             task.setNotificationDate(Utils.toLocalDateTime(notDatePicker.getValue(), notTimePicker.getValue()));
         }
         task.setDate(Utils.toLocalDateTime(datePicker.getValue(), timePicker.getValue()));

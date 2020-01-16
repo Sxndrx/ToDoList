@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-
-
-<AnchorPane fx:id="pane" prefHeight="510.0" prefWidth="450.0" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toDoApp.controller.ListViews.TaskListViewController">
-   <children>
-      <AnchorPane prefHeight="200.0" prefWidth="450.0" styleClass="upperBar">
-         <children>
-            <Label fx:id="parentName" layoutY="12.0" prefHeight="40.0" prefWidth="403.0" styleClass="labLight" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="0.0" />
-            <ImageView fx:id="addTaskBtn" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
-               <image>
-                  <Image url="@/icons/baseline_add_white_48dp.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <JFXListView fx:id="taskListView" layoutY="40.0" prefHeight="470.0" prefWidth="450.0" />
-   </children>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pane" prefHeight="510.0" prefWidth="450.0"
+            stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="toDoApp.controller.ListViews.TaskListViewController">
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="450.0" styleClass="upperBar">
+            <children>
+                <Label fx:id="parentName" layoutY="12.0" prefHeight="40.0" prefWidth="403.0" styleClass="labLight"
+                       AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="45.0"
+                       AnchorPane.topAnchor="0.0"/>
+                <ImageView fx:id="addTaskBtn" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true"
+                           AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                    <image>
+                        <Image url="@/icons/baseline_add_white_48dp.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+        <JFXListView fx:id="taskListView" layoutY="40.0" prefHeight="470.0" prefWidth="450.0"/>
+    </children>
 </AnchorPane>

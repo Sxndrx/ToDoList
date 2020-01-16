@@ -2,7 +2,10 @@ package toDoApp.database.entities;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class ProjectEntity {
@@ -49,6 +52,6 @@ public class ProjectEntity {
 
     @Override
     public String toString() {
-        return "Project : " + id.toString() + " name: " + title;
+        return "Project : " + id + " name: " + title;
     }
 }

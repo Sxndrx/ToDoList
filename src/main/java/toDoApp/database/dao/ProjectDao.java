@@ -17,10 +17,10 @@ public class ProjectDao implements IProjectDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        try{
+        try {
             entityManager.persist(projectEntity);
             transaction.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             transaction.rollback();
         }
         entityManager.close();
@@ -32,11 +32,11 @@ public class ProjectDao implements IProjectDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        try{
+        try {
             entityManager.refresh(projectEntity);
             entityManager.remove(projectEntity);
             transaction.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             transaction.rollback();
         }
         entityManager.close();
@@ -52,7 +52,7 @@ public class ProjectDao implements IProjectDao {
         try {
             entityManager.unwrap(Session.class).merge(projectEntity);
             transaction.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             transaction.rollback();
         }
         entityManager.close();
@@ -60,7 +60,7 @@ public class ProjectDao implements IProjectDao {
 
     @Override
     public List<ProjectEntity> getAllProjectEntities() {
-        List <ProjectEntity> projectEntities = new ArrayList<>();
+        List<ProjectEntity> projectEntities = new ArrayList<>();
         String query = "db.ProjectEntity.find({})";
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -73,7 +73,7 @@ public class ProjectDao implements IProjectDao {
 
     @Override
     public ProjectEntity getProjectById(String id) {
-        String query = "db.ProjectEntity.find({'_id' : ObjectId(\""+ id +"\")})";
+        String query = "db.ProjectEntity.find({'_id' : ObjectId(\"" + id + "\")})";
         ProjectEntity projectEntity;
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();

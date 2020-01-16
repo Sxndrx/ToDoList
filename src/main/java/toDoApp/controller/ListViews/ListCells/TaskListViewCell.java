@@ -1,6 +1,7 @@
 package toDoApp.controller.ListViews.ListCells;
 
 import com.jfoenix.controls.JFXCheckBox;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,11 +43,11 @@ public class TaskListViewCell extends ListCell<Task> implements IMyListCell {
     protected void updateItem(Task item, boolean empty) {
         super.updateItem(item, empty);
 
-        if(empty || item==null){
+        if (empty || item == null) {
             setText(null);
             setGraphic(null);
-        }else{
-            if(fxmlLoader==null){
+        } else {
+            if (fxmlLoader == null) {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/view/ListViews/ListCells/TaskCell.fxml"));
                 fxmlLoader.setController(this);
                 try {
@@ -98,7 +99,6 @@ public class TaskListViewCell extends ListCell<Task> implements IMyListCell {
     public void delete() {
         Task task = getListView().getSelectionModel().getSelectedItem();
         getListView().getItems().remove(task);
-        TaskRepo.removeTask(task);
     }
 
     @Override
@@ -126,20 +126,19 @@ public class TaskListViewCell extends ListCell<Task> implements IMyListCell {
     public void setCellGraphic(Object item) {
         Task task = (Task) item;
         nameLabel.setText(task.getTitle());
-        if(task.dateProperty()!=null){
+        if (task.dateProperty() != null) {
             dueDateLabel.setText(task.getDate().toString());
-        }
-        else {
+        } else {
             dueDateLabel.setText("without time limit");
         }
         doneBtn.setSelected(task.isDone());
-        if(task.isDone()){
+        if (task.isDone()) {
             anchorPane.setStyle("-fx-background-color: #bfefc8");
-        }else if(Utils.isPast(task.getDate())){
+        } else if (Utils.isPast(task.getDate())) {
             anchorPane.setStyle("-fx-background-color: #efbaba");
-        }else if(task.isPriority()){
+        } else if (task.isPriority()) {
             anchorPane.setStyle("-fx-background-color: #efdca5");
-        }else{
+        } else {
             anchorPane.setStyle("-fx-background-color: #efefef");
         }
     }

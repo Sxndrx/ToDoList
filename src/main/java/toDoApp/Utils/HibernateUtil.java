@@ -4,8 +4,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class HibernateUtil {
-    private static EntityManagerFactory entityManagerFactory;
     private static final String persistenceName = "ToDoPersistence";
+    private static EntityManagerFactory entityManagerFactory;
 
     static {
         try {

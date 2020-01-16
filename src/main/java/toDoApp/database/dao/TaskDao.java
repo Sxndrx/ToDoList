@@ -19,10 +19,10 @@ public class TaskDao implements ITaskDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        try{
+        try {
             entityManager.persist(taskEntity);
             transaction.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback();
         }
@@ -35,11 +35,11 @@ public class TaskDao implements ITaskDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        try{
+        try {
             entityManager.refresh(taskEntity);
             entityManager.remove(taskEntity);
             transaction.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             transaction.rollback();
         }
         entityManager.close();
@@ -51,10 +51,10 @@ public class TaskDao implements ITaskDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        try{
+        try {
             entityManager.unwrap(Session.class).merge(taskEntity);
             transaction.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             transaction.rollback();
         }
         entityManager.close();
@@ -87,7 +87,7 @@ public class TaskDao implements ITaskDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         List<TaskEntity> taskEntities = entityManager.createQuery(query, TaskEntity.class).
-                setParameter("date",Date.from(Instant.now())).getResultList();
+                setParameter("date", Date.from(Instant.now())).getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();
 
@@ -110,7 +110,7 @@ public class TaskDao implements ITaskDao {
         return taskEntity;
     }
 
-    private List<TaskEntity> getByNativeQuery(String query){
+    private List<TaskEntity> getByNativeQuery(String query) {
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();

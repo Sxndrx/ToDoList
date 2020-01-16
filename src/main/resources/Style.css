@@ -1,27 +1,32 @@
-.stdButton{
+.stdButton {
     -fx-text-fill: #efefef;
     -fx-background-color: #002f6c;
     -fx-pref-height: 30;
     -fx-pref-width: 60;
 }
-.okButton{
+
+.okButton {
     -fx-text-fill: #efefef;
     -fx-background-color: #002f6c;
 }
-.upperBar{
+
+.upperBar {
     -fx-background-color: #01579b;
     -fx-pref-height: 40;
 }
-.labLight{
+
+.labLight {
     -fx-text-fill: #efefef;
     -fx-alignment: center;
     -fx-font-size: 16;
 }
-.labDark{
+
+.labDark {
     -fx-text-fill: #1b1b1b;
     -fx-font-size: 14;
 }
-.labDarkSmall{
+
+.labDarkSmall {
     -fx-text-fill: #1b1b1b;
     -fx-font-size: 12;
 }

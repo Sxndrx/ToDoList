@@ -3,15 +3,22 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #efefef;" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toDoApp.controller.NotificationController">
-   <children>
-      <JFXButton fx:id="okBtn" layoutX="324.0" layoutY="60.0" styleClass="okButton" text="OK" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-      <JFXButton fx:id="closeBtn" layoutX="373.0" layoutY="1.0" text="X" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" />
-      <Label fx:id="info" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="78.0" prefWidth="322.0" styleClass="labDark" text="Label" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="1.0">
-         <padding>
-            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-         </padding></Label>
-   </children>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="80.0" prefWidth="350.0" style="-fx-background-color: #efefef;"
+            stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="toDoApp.controller.NotificationController">
+    <children>
+        <JFXButton fx:id="okBtn" layoutX="324.0" layoutY="60.0" styleClass="okButton" text="OK"
+                   AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0"/>
+        <JFXButton fx:id="closeBtn" layoutX="373.0" layoutY="1.0" text="X" AnchorPane.rightAnchor="1.0"
+                   AnchorPane.topAnchor="1.0"/>
+        <Label fx:id="info" alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="78.0" prefWidth="322.0"
+               styleClass="labDark" text="Label" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="1.0"
+               AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="1.0">
+            <padding>
+                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+            </padding>
+        </Label>
+    </children>
 </AnchorPane>
