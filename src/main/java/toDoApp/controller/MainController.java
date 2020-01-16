@@ -3,11 +3,12 @@ package toDoApp.controller;
 import com.jfoenix.controls.JFXListView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import toDoApp.controller.ListViews.ProjectListViewController;
+import toDoApp.controller.ListViews.TaskListViewController;
 import toDoApp.model.project.Project;
 
-import java.io.IOException;
+import java.util.List;
 
 public class MainController {
     @FXML
@@ -26,8 +27,13 @@ public class MainController {
     void initialize() {
         projectList = projectListViewController.getProjectsListView();
         projectList.getSelectionModel().selectedItemProperty().addListener(event -> {
-            taskListViewController.setProjectTaskList(projectList.getSelectionModel().getSelectedItem().getId());
+            taskListViewController.updateTaskListFromProject(projectList.getSelectionModel().getSelectedItem());
         });
+        projectList.getSelectionModel().selectFirst();
     }
+
+    private void checkToNotificate(){
+    }
+
 
 }

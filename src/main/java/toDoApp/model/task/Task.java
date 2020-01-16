@@ -2,32 +2,35 @@ package toDoApp.model.task;
 
 import javafx.beans.property.*;
 import toDoApp.database.task.TaskEntity;
+import toDoApp.model.project.Project;
+import toDoApp.model.project.ProjectRepo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 public class Task {
 
     private StringProperty id;
     private StringProperty title;
     private StringProperty description;
-    private StringProperty dateString;
+    private ObjectProperty<LocalDate> date;
     private BooleanProperty priority;
     private BooleanProperty notify;
-    private StringProperty notifyDateString;
-    private StringProperty projectId;
-    private StringProperty parentTaskId;
+    private ObjectProperty<LocalDate> notifyDate;
+    private BooleanProperty done;
+    private ObjectProperty<Project> project;
+    private ObjectProperty<Task> parentTask;
 
     public Task() {
         id = new SimpleStringProperty();
         title = new SimpleStringProperty();
         description = new SimpleStringProperty();
-        dateString = new SimpleStringProperty();
+        date = new SimpleObjectProperty<>();
         priority = new SimpleBooleanProperty();
         notify = new SimpleBooleanProperty();
-        notifyDateString = new SimpleStringProperty();
-        projectId = new SimpleStringProperty();
-        parentTaskId = new SimpleStringProperty();
+        notifyDate = new SimpleObjectProperty<>();
+        project = new SimpleObjectProperty<>();
+        parentTask = new SimpleObjectProperty<>();
+        done = new SimpleBooleanProperty(false);
 
     }
 
@@ -37,19 +40,20 @@ public class Task {
         if (taskEntity.getDescription() != null) {
             description = new SimpleStringProperty(taskEntity.getDescription());
         }
-//        if (taskEntity.getDueDate() != null) {
-//            dateString = new SimpleStringProperty(taskEntity.getDueDate().toString());
-//        }
+        if (taskEntity.getDueDate() != null) {
+            date = new SimpleObjectProperty<>(taskEntity.getDueDate());
+        }
         priority = new SimpleBooleanProperty(taskEntity.getPriority().booleanValue());
-//        notify = new SimpleBooleanProperty(taskEntity.getNotify().booleanValue());
-//        if (notify.getValue()) {
-//            notifyDateString = new SimpleStringProperty(taskEntity.getNotificationDate().toString());
-//        }
-        if(projectId!=null){
-            projectId = new SimpleStringProperty(taskEntity.getProjectEntity().getId());
+        notify = new SimpleBooleanProperty(taskEntity.getNotify().booleanValue());
+        if (taskEntity.getNotificationDate()!=null) {
+            notifyDate = new SimpleObjectProperty<>(taskEntity.getNotificationDate());
+        }
+        done = new SimpleBooleanProperty(taskEntity.getDone());
+        if(taskEntity.getProjectEntity()!=null){
+            project = new SimpleObjectProperty<>(new Project(taskEntity.getProjectEntity()));
         }
         if(taskEntity.getParentTaskEntity()!=null){
-            parentTaskId = new SimpleStringProperty(taskEntity.getParentTaskEntity().getId());
+            parentTask = new SimpleObjectProperty<>(new Task(taskEntity.getParentTaskEntity()));
         }
     }
 
@@ -61,23 +65,21 @@ public class Task {
         if (description != null) {
             taskEntity.setDescription(description.getValue());
         }
-        if (dateString != null) {
-            try {
-                taskEntity.setDueDate(new SimpleDateFormat().parse(dateString.getValue()));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        if (date != null) {
+            taskEntity.setDueDate(date.getValue());
         }
         taskEntity.setPriority(priority.get());
         if(notify!=null){
             taskEntity.setNotify(notify.get());
-            if (notify.getValue()) {
-                try {
-                    taskEntity.setNotificationDate(new SimpleDateFormat().parse(notifyDateString.getValue()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
+        }
+        if (notifyDate!=null) {
+            taskEntity.setNotificationDate(notifyDate.getValue());
+        }
+        taskEntity.setDone(done.getValue());
+        if(project!=null){
+            taskEntity.setProjectEntity(project.get().toProjectEntity());
+        }else if(parentTask!=null){
+            taskEntity.setParentTaskEntity(parentTask.get().toTaskEntity());
         }
 
         return taskEntity;
@@ -119,18 +121,6 @@ public class Task {
         this.description.set(description);
     }
 
-    public String getDateString() {
-        return dateString.get();
-    }
-
-    public StringProperty dateStringProperty() {
-        return dateString;
-    }
-
-    public void setDateString(String dateString) {
-        this.dateString.set(dateString);
-    }
-
     public boolean getPriority() {
         return priority.get();
     }
@@ -155,39 +145,71 @@ public class Task {
         this.notify.set(notify);
     }
 
-    public String getNotifyDateString() {
-        return notifyDateString.get();
+    public LocalDate getDate() {
+        return date.get();
     }
 
-    public StringProperty notifyDateStringProperty() {
-        return notifyDateString;
+    public ObjectProperty<LocalDate> dateProperty() {
+        return date;
     }
 
-    public void setNotifyDateString(String notifyDateString) {
-        this.notifyDateString.set(notifyDateString);
+    public void setDate(LocalDate date) {
+        this.date.set(date);
     }
 
-    public String getProjectId() {
-        return projectId.get();
+    public boolean isPriority() {
+        return priority.get();
     }
 
-    public StringProperty projectIdProperty() {
-        return projectId;
+    public boolean isNotify() {
+        return notify.get();
     }
 
-    public void setProjectId(String projectId) {
-        this.projectId.set(projectId);
+    public LocalDate getNotifyDate() {
+        return notifyDate.get();
     }
 
-    public String getParentTaskId() {
-        return parentTaskId.get();
+    public ObjectProperty<LocalDate> notifyDateProperty() {
+        return notifyDate;
     }
 
-    public StringProperty parentTaskIdProperty() {
-        return parentTaskId;
+    public void setNotifyDate(LocalDate notifyDate) {
+        this.notifyDate.set(notifyDate);
     }
 
-    public void setParentTaskId(String parentTaskId) {
-        this.parentTaskId.set(parentTaskId);
+    public Project getProject() {
+        return project.get();
+    }
+
+    public ObjectProperty<Project> projectProperty() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project.set(project);
+    }
+
+    public Task getParentTask() {
+        return parentTask.get();
+    }
+
+    public ObjectProperty<Task> parentTaskProperty() {
+        return parentTask;
+    }
+
+    public void setParentTask(Task parentTask) {
+        this.parentTask.set(parentTask);
+    }
+
+    public boolean isDone() {
+        return done.get();
+    }
+
+    public BooleanProperty doneProperty() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done.set(done);
     }
 }

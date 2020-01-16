@@ -1,5 +1,8 @@
 package toDoApp;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import toDoApp.Utils.HibernateUtil;
 import toDoApp.database.project.IProjectDao;
 import toDoApp.database.project.ProjectDao;
 import toDoApp.database.task.ITaskDao;
@@ -16,16 +19,18 @@ public class AppTestModel {
         IProjectDao projectDao = new ProjectDao();
         ITaskDao taskDao = new TaskDao();
 
-        List<TaskEntity> list = taskDao.getAllTaskEntitiesFromProject("5e1e2734d8895c81e963b59e");
-        for(TaskEntity taskEntity : list){
-            System.out.println(taskEntity.getTitle());
-        }
-
-        List<TaskEntity> list2 = taskDao.getAllTaskEntitiesFromParentTask("5e1e2dd6ad1cb78badfd37c4");
-        for(TaskEntity taskEntity : list2){
-            System.out.println(taskEntity.getTitle());
-        }
+//        List<TaskEntity> list = taskDao.getAllTaskEntitiesFromProject("5e1e2734d8895c81e963b59e");
+//        for(TaskEntity taskEntity : list){
+//            System.out.println(taskEntity.getTitle());
+//        }
+//
+//        List<TaskEntity> list2 = taskDao.getAllTaskEntitiesFromParentTask("5e1e2dd6ad1cb78badfd37c4");
+//        for(TaskEntity taskEntity : list2){
+//            System.out.println(taskEntity.getTitle());
+//        }
 
         HibernateUtil.closeEntityManagerFactory();
+
+
     }
 }

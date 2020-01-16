@@ -1,8 +1,5 @@
-package toDoApp.controller;
+package toDoApp.controller.ListViews.ListCells;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,13 +10,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import toDoApp.controller.Forms.ProjectFormController;
 import toDoApp.model.project.Project;
 import toDoApp.model.project.ProjectRepo;
 
 import java.io.IOException;
 
 
-public class ProjectListViewCell extends ListCell<Project> {
+public class ProjectListViewCell extends ListCell<Project> implements IMyListCell {
 
     @FXML
     private Label nameLabel;
@@ -50,7 +48,7 @@ public class ProjectListViewCell extends ListCell<Project> {
 
         } else {
             if(fxmlLoader==null){
-                fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProjectCell.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/view/ListViews/ListCells/ProjectCell.fxml"));
                 fxmlLoader.setController(this);
                 try {
                     fxmlLoader.load();
@@ -59,17 +57,7 @@ public class ProjectListViewCell extends ListCell<Project> {
                     e.printStackTrace();
                 }
             }
-            if(nameLabel ==null){
-                nameLabel = new Label();
-            }
-
-            nameLabel.setText(item.getTitle());
-            if(item.getPriority()){
-                anchorPane.setStyle("-fx-background-color: #efdca5");
-            }else{
-                anchorPane.setStyle("-fx-background-color: #efefef");
-            }
-
+            setCellGraphic(item);
             setText(null);
             setGraphic(anchorPane);
 
@@ -77,28 +65,30 @@ public class ProjectListViewCell extends ListCell<Project> {
 
     }
 
-    private void setEventHandlers(){
-        deleteBtn.addEventHandler(MouseEvent.MOUSE_CLICKED , event -> deleteProject());
+    @Override
+    public void setEventHandlers(){
+        deleteBtn.addEventHandler(MouseEvent.MOUSE_CLICKED , event -> delete());
         showMoreBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> showMore());
     }
 
-    private void deleteProject(){
+    @Override
+    public void delete(){
         Project project = getListView().getSelectionModel().getSelectedItem();
-        System.out.println(project.getTitle());
         getListView().getItems().remove(project);
         ProjectRepo.removeProject(project);
     }
 
-    private void showMore(){
+    @Override
+    public void showMore(){
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProjectForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Forms/ProjectForm.fxml"));
         Parent root = null;
         try {
             root = fxmlLoader.load();
             ProjectFormController controller = fxmlLoader.getController();
             controller.setProjects(getListView().getItems());
             controller.setSelectedProject(getListView().getSelectionModel().getSelectedItem());
-            controller.setAddNew(false);
+            controller.setFormMode(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,4 +97,18 @@ public class ProjectListViewCell extends ListCell<Project> {
         stage.show();
     }
 
+    @Override
+    public void setCellGraphic(Object item) {
+        Project project = (Project) item;
+        if(nameLabel ==null){
+            nameLabel = new Label();
+        }
+        nameLabel.setText(project.getTitle());
+        if(project.getPriority()){
+            anchorPane.setStyle("-fx-background-color: #efdca5");
+        }else{
+            anchorPane.setStyle("-fx-background-color: #efefef");
+        }
+
+    }
 }

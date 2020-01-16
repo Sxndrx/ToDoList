@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="510.0" prefWidth="450.0" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toDoApp.controller.TaskListViewController">
+<AnchorPane fx:id="pane" prefHeight="510.0" prefWidth="450.0" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toDoApp.controller.ListViews.TaskListViewController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="450.0" styleClass="upperBar">
          <children>

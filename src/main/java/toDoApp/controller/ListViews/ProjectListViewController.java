@@ -1,4 +1,4 @@
-package toDoApp.controller;
+package toDoApp.controller.ListViews;
 
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.ObservableList;
@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import toDoApp.controller.Forms.ProjectFormController;
+import toDoApp.controller.ListViews.ListCells.ProjectListViewCell;
 import toDoApp.model.project.Project;
 import toDoApp.model.project.ProjectRepo;
 
@@ -39,13 +41,13 @@ public class ProjectListViewController {
 
     private void openAddProjectWindow(){
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProjectForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Forms/ProjectForm.fxml"));
         Parent root = null;
         try {
             root = fxmlLoader.load();
             ProjectFormController controller = fxmlLoader.getController();
             controller.setProjects(projectObservableList);
-            controller.setAddNew(true);
+            controller.setFormMode(true);
         } catch (IOException e) {
             e.printStackTrace();
         }

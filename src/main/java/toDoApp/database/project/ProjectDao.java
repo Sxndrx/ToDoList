@@ -1,7 +1,7 @@
 package toDoApp.database.project;
 
 import org.hibernate.Session;
-import toDoApp.HibernateUtil;
+import toDoApp.Utils.HibernateUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,7 +19,6 @@ public class ProjectDao implements IProjectDao {
         try{
             entityManager.persist(projectEntity);
             transaction.commit();
-            entityManager.flush();
         }catch (Exception e){
             transaction.rollback();
         }
@@ -47,10 +46,14 @@ public class ProjectDao implements IProjectDao {
     public void updateProjectEntity(ProjectEntity projectEntity) {
         EntityManagerFactory entityManagerFactory = HibernateUtil.getEntityManagerFactory();
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.unwrap(Session.class).merge(projectEntity);
-        entityManager.flush();
-        entityManager.getTransaction().commit();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        try {
+            entityManager.unwrap(Session.class).merge(projectEntity);
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+        }
         entityManager.close();
     }
 

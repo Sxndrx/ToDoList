@@ -1,4 +1,4 @@
-package toDoApp.controller;
+package toDoApp.controller.Forms;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -8,12 +8,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import toDoApp.Utils;
-import toDoApp.exceptions.EmptyTitleException;
+import toDoApp.Utils.Utils;
+import toDoApp.Utils.exceptions.EmptyTitleException;
+import toDoApp.controller.ListViews.ListCells.IFormController;
 import toDoApp.model.project.Project;
 import toDoApp.model.project.ProjectRepo;
 
-public class ProjectFormController {
+public class ProjectFormController implements IFormController {
 
     @FXML
     private JFXTextField title;
@@ -38,10 +39,11 @@ public class ProjectFormController {
         setEventHandlers();
     }
 
-    private void setEventHandlers(){
+    @Override
+    public void setEventHandlers(){
         saveButton.setOnMouseClicked(event -> {
             if(addNew){
-                saveProject();
+                save();
             }else{
                 update();
             }
@@ -49,32 +51,32 @@ public class ProjectFormController {
         editBtn.setOnMouseClicked(event -> setDisabled(false));
     }
 
-    private void saveProject() {
+    @Override
+    public void save() {
         try {
-            Utils.validateInput(title);
+            Utils.validateTitle(title);
             Project project = new Project();
             setProject(project);
-            projects.add(project);
-            ProjectRepo.addProject(project);
+                ProjectRepo.addProject(project);
+                projects.add(project);
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         } catch (EmptyTitleException e) {
-            title.setPromptText(e.getMessage());
-            title.setStyle("-fx-prompt-text-fill: #c4001d;");
+            Utils.setWarningOnTitle(title);
         }
     }
 
-    private void update(){
+    @Override
+    public void update(){
         try {
-            Utils.validateInput(title);
+            Utils.validateTitle(title);
             setProject(selectedProject);
             projects.set(projects.indexOf(selectedProject), selectedProject);
             ProjectRepo.updateProject(selectedProject);
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         } catch (EmptyTitleException e) {
-            title.setPromptText(e.getMessage());
-            title.setStyle("-fx-prompt-text-fill: #c4001d;");
+            Utils.setWarningOnTitle(title);
         }
     }
 
@@ -92,12 +94,14 @@ public class ProjectFormController {
         this.projects = projects;
     }
 
-    private void showMore(){
+    @Override
+    public void showMore(){
         setWindow();
         setDisabled(true);
     }
 
-    private void setWindow(){
+    @Override
+    public void setWindow(){
         projectName.setText(selectedProject.getTitle());
         title.setText(selectedProject.getTitle());
         description.setText(selectedProject.getDescription());
@@ -105,7 +109,8 @@ public class ProjectFormController {
         editBtn.setVisible(true);
     }
 
-    private void setDisabled(boolean disabled){
+    @Override
+    public void setDisabled(boolean disabled){
         title.setDisable(disabled);
         description.setDisable(disabled);
         priorityButton.setDisable(disabled);
@@ -116,10 +121,9 @@ public class ProjectFormController {
         this.selectedProject = selectedProject;
     }
 
-    public void setAddNew(boolean addNew) {
+    public void setFormMode(boolean addNew) {
         this.addNew = addNew;
         if(!addNew){
-      //      setSelectedProject(projects.get(0));
             showMore();
         }
     }

@@ -16,23 +16,18 @@ public class ProjectRepo {
 
     public static void addProject(Project project){
         ProjectEntity projectEntity = project.toProjectEntity();
-        Platform.runLater(() -> {
             projectDao.addProjectEntity(projectEntity);
-        });
+            project.setId(projectEntity.getId());
     }
 
     public static void updateProject(Project project){
         ProjectEntity projectEntity = project.toProjectEntity();
-        Platform.runLater(()->{
             projectDao.updateProjectEntity(projectEntity);
-        });
     }
     public static void removeProject(Project project){
-        Platform.runLater(()->{
             TaskRepo.removeTasksFromProject(project.getId());
             ProjectEntity projectEntity = project.toProjectEntity();
             projectDao.removeProjectEntity(projectEntity);
-        });
     }
     public static ObservableList<Project> getAllProjects(){
         List<ProjectEntity> projectEntities;

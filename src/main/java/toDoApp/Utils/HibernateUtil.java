@@ -1,4 +1,4 @@
-package toDoApp;
+package toDoApp.Utils;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

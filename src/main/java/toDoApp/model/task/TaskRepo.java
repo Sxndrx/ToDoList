@@ -15,7 +15,6 @@ public class TaskRepo {
     public static void removeTasksFromProject(String projectId){
         for(Task task : getTasksFromProject(projectId)){
             removeTask(task);
-            taskDao.removeTaskEntity(task.toTaskEntity());
         }
     }
 
@@ -41,17 +40,19 @@ public class TaskRepo {
 
     public static void addTask(Task task){
         TaskEntity taskEntity = task.toTaskEntity();
-        Platform.runLater(()->{
             taskDao.addTaskEntity(taskEntity);
-        });
+            task.setId(taskEntity.getId());
     }
     public static void removeTask(Task task){
         List<Task> subTasks = getSubTasksFromParent(task);
         for(Task subTask: subTasks){
             removeTask(subTask);
-            taskDao.removeTaskEntity(subTask.toTaskEntity());
         }
-    }
+        taskDao.removeTaskEntity(task.toTaskEntity());
 
+    }
+    public static void updateTask(Task task){
+        taskDao.updateTaskEntity(task.toTaskEntity());
+    }
 
 }

@@ -12,4 +12,6 @@ dark red #c4001d
 light red #ff5a4e
 
 priority #efdca5
+past #efbaba
 
+done #bfefc8

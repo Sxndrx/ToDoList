@@ -8,12 +8,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toDoApp.controller.ProjectFormController">
+<AnchorPane prefHeight="400.0" prefWidth="400.0" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="toDoApp.controller.Forms.ProjectFormController">
    <children>
       <AnchorPane prefHeight="64.0" prefWidth="400.0" styleClass="upperBar">
          <children>
             <Label fx:id="projectName" layoutX="110.0" layoutY="12.0" prefHeight="40.0" prefWidth="400.0" styleClass="labLight" text="Create new project" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <JFXButton visible="false" fx:id="editBtn" prefWidth="60.0" prefHeight="40.0" styleClass="stdButton" text="Edit" AnchorPane.leftAnchor="320.0" />
+            <JFXButton visible="false" fx:id="editBtn" prefWidth="60.0" prefHeight="40.0" styleClass="stdButton" text="Edit" AnchorPane.leftAnchor="320.0" AnchorPane.topAnchor="5" />
          </children>
       </AnchorPane>
       <JFXTextField fx:id="title" focusColor="#4f83cc" layoutY="64.0" prefHeight="40.0" prefWidth="380.0" promptText="Title" styleClass="text-field" unFocusColor="#424242" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />

@@ -15,7 +15,18 @@
          <children>
             <HBox prefHeight="25.0" prefWidth="430.0">
                <children>
-                  <Label fx:id="nameLabel" alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="405.0" styleClass="labDark" text="Task Name" />
+                  <Label fx:id="nameLabel" prefHeight="25.0" prefWidth="405.0" styleClass="labDark" text="Task Name">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                  <ImageView fx:id="showSubTasksBtn" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/icons/sharp_expand_more_black_18dp.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="2.5" top="2.5" />
+                     </HBox.margin>
+                  </ImageView>
                   <ImageView fx:id="deleteBtn" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@/icons/sharp_delete_forever_black_18dp.png" />
@@ -37,7 +48,7 @@
             <HBox prefHeight="25.0" prefWidth="420.0">
                <children>
                   <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="87.0" styleClass="labDarkSmall" text="Due Date: " />
-                  <Label fx:id="dueDateLabel" prefHeight="25.0" prefWidth="233.0" styleClass="labDarkSmall"/>
+                  <Label fx:id="dueDateLabel" prefHeight="25.0" prefWidth="233.0" styleClass="labDarkSmall" />
                   <JFXCheckBox fx:id="doneBtn" checkedColor="#4f83cc" prefHeight="25.0" prefWidth="133.0" text="Done" unCheckedColor="#424242" />
                </children>
             </HBox>

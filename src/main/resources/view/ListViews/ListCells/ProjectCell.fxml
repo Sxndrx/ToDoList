@@ -8,17 +8,17 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="25.0" prefWidth="240.0" stylesheets="@/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="nameLabel" prefHeight="25.0" prefWidth="100.0" styleClass="labDark" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="nameLabel" prefHeight="25.0" styleClass="labDark" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <padding>
             <Insets left="5.0" />
          </padding>
       </Label>
-      <ImageView fx:id="deleteBtn" pickOnBounds="true" fitHeight="20.0" fitWidth="20.0" preserveRatio="true" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="2.5">
+      <ImageView fx:id="deleteBtn" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="2.5">
          <image>
             <Image url="@/icons/sharp_delete_forever_black_18dp.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="showMoreBtn" pickOnBounds="true" fitHeight="20.0" fitWidth="20.0" preserveRatio="true" AnchorPane.rightAnchor="0.5" AnchorPane.topAnchor="2.5">
+      <ImageView fx:id="showMoreBtn" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.5" AnchorPane.topAnchor="2.5">
          <image>
             <Image url="@/icons/baseline_more_vert_black_48dp.png" />
          </image>
