@@ -1,4 +1,4 @@
-package toDoApp.database.project;
+package toDoApp.database.entities;
 
 import org.hibernate.annotations.Type;
 

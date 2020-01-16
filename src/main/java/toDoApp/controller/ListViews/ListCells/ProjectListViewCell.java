@@ -11,8 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import toDoApp.controller.Forms.ProjectFormController;
-import toDoApp.model.project.Project;
-import toDoApp.model.project.ProjectRepo;
+import toDoApp.model.models.Project;
+import toDoApp.model.repo.ProjectRepo;
 
 import java.io.IOException;
 

@@ -1,11 +1,10 @@
-package toDoApp.model.task;
+package toDoApp.model.repo;
 
-import javafx.application.Platform;
-import toDoApp.database.task.ITaskDao;
-import toDoApp.database.task.TaskDao;
-import toDoApp.database.task.TaskEntity;
+import toDoApp.database.dao.ITaskDao;
+import toDoApp.database.dao.TaskDao;
+import toDoApp.database.entities.TaskEntity;
+import toDoApp.model.models.Task;
 
-import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,13 +53,14 @@ public class TaskRepo {
         taskDao.updateTaskEntity(task.toTaskEntity());
     }
 
-    public static List<Task> getTodayTasks() {
-        List<TaskEntity> list = taskDao.getTaskByDate(LocalDate.now());
+
+    public static List<Task> getTaskListForNotification() {
+        List<TaskEntity> list = taskDao.getOverdueTaskForNotification();
         return getTaskListFromTaskEntities(list);
     }
 
-    public static List<Task> getTomorrowTasks() {
-        List<TaskEntity> list = taskDao.getTaskByDate(LocalDate.now().plusDays(1));
-        return getTaskListFromTaskEntities(list);
+    public static Task getNextTaskNotification(){
+        return new Task(taskDao.getNextTaskEntityNotification());
     }
+
 }

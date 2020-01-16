@@ -1,6 +1,6 @@
-package toDoApp.database.task;
+package toDoApp.database.dao;
 
-import org.bson.types.ObjectId;
+import toDoApp.database.entities.TaskEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,4 +12,7 @@ public interface ITaskDao {
     List<TaskEntity> getAllTaskEntitiesFromProject(String projectId);
     List<TaskEntity> getAllTaskEntitiesFromParentTask(String parentId);
     List<TaskEntity> getTaskByDate(LocalDate date);
+    List<TaskEntity> getOverdueTaskForNotification();
+
+    TaskEntity getNextTaskEntityNotification();
 }

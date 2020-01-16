@@ -1,13 +1,11 @@
-package toDoApp.database.task;
+package toDoApp.database.entities;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.Cache;
-import toDoApp.database.project.ProjectEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class TaskEntity {
@@ -18,9 +16,10 @@ public class TaskEntity {
 
     private String title;
     private String description;
-    private LocalDate dueDate;
+    private Date dueDate;
     private Boolean priority;
     private Boolean notify;
+    private Date notificationDate;
     private Boolean done;
 
     @ManyToOne
@@ -52,11 +51,11 @@ public class TaskEntity {
         this.description = description;
     }
 
-    public LocalDate getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -99,4 +98,13 @@ public class TaskEntity {
     public void setParentTaskEntity(TaskEntity parentTaskEntity) {
         this.parentTaskEntity = parentTaskEntity;
     }
+
+    public Date getNotificationDate() {
+        return notificationDate;
+    }
+
+    public void setNotificationDate(Date notificationDate) {
+        this.notificationDate = notificationDate;
+    }
+
 }

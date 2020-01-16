@@ -8,13 +8,20 @@ import javafx.stage.Stage;
 import toDoApp.Utils.Utils;
 import toDoApp.Utils.exceptions.EmptyDateException;
 import toDoApp.Utils.exceptions.EmptyTitleException;
-import toDoApp.controller.ListViews.ListCells.IFormController;
-import toDoApp.model.project.Project;
-import toDoApp.model.task.Task;
-import toDoApp.model.task.TaskRepo;
+import toDoApp.Utils.exceptions.WrongNotifacationException;
+import toDoApp.model.models.Project;
+import toDoApp.model.models.Task;
+import toDoApp.model.repo.TaskRepo;
 
 
 public class TaskFormController implements IFormController {
+
+    @FXML
+    private JFXTimePicker timePicker;
+    @FXML
+    private JFXDatePicker notDatePicker;
+    @FXML
+    private JFXTimePicker notTimePicker;
     @FXML
     private Label taskName;
     @FXML
@@ -39,56 +46,65 @@ public class TaskFormController implements IFormController {
     private ObservableList<Task> tasks;
 
     @FXML
-    void initialize(){
+    void initialize() {
         setEventHandlers();
     }
 
     @Override
     public void setEventHandlers() {
-        saveBtn.setOnMouseClicked(event -> {
-            if(addNew){
-                save();
-            }else{
-                update();
-            }
-        });
+        saveBtn.setOnMouseClicked(event -> save());
         editBtn.setOnMouseClicked(event -> setDisabled(false));
+        notifyButton.setOnAction(event -> setDisabledNotificationDate());
     }
+
 
     @Override
     public void save() {
         try {
-            Utils.validateTitle(title);
-            Utils.validateDate(datePicker);
-            Task task = new Task();
-            setTask(task);
-            tasks.add(task);
-            TaskRepo.addTask(task);
+            validateInput();
+            if (addNew) {
+                addNewObject();
+            } else {
+                update();
+            }
             Stage stage = (Stage) saveBtn.getScene().getWindow();
             stage.close();
         } catch (EmptyTitleException e) {
             Utils.setWarningOnTitle(title);
         } catch (EmptyDateException e) {
             Utils.setWarningOnDatePicker(datePicker);
+            Utils.setWarningOnTimePicker(timePicker);
+        } catch (WrongNotifacationException e) {
+            Utils.setWarningOnDatePicker(notDatePicker);
+            Utils.setWarningOnTimePicker(notTimePicker);
         }
+
+    }
+
+    @Override
+    public void validateInput() throws EmptyTitleException, EmptyDateException, WrongNotifacationException {
+        Utils.validateTitle(title);
+        Utils.validateDate(datePicker);
+        Utils.validateTime(timePicker);
+        if(notifyButton.isSelected()){
+            Utils.validateNotificationDate(notDatePicker, notTimePicker);
+        }
+    }
+
+    @Override
+    public void addNewObject() {
+        Task task = new Task();
+        setTask(task);
+        tasks.add(task);
+        TaskRepo.addTask(task);
     }
 
 
     @Override
     public void update() {
-        try {
-            Utils.validateTitle(title);
-            Utils.validateDate(datePicker);
-            setTask(selectedTask);
-            TaskRepo.updateTask(selectedTask);
-            tasks.set(tasks.indexOf(selectedTask),selectedTask);
-            Stage stage = (Stage) saveBtn.getScene().getWindow();
-            stage.close();
-        } catch (EmptyTitleException e) {
-            Utils.setWarningOnTitle(title);
-        } catch (EmptyDateException e) {
-            Utils.setWarningOnDatePicker(datePicker);
-        }
+        setTask(selectedTask);
+        TaskRepo.updateTask(selectedTask);
+        tasks.set(tasks.indexOf(selectedTask), selectedTask);
     }
 
     @Override
@@ -103,7 +119,13 @@ public class TaskFormController implements IFormController {
         taskName.setText(selectedTask.getTitle());
         title.setText(selectedTask.getTitle());
         description.setText(selectedTask.getDescription());
-        datePicker.setValue(selectedTask.getDate());
+        datePicker.setValue(selectedTask.getDate().toLocalDate());
+        timePicker.setValue(selectedTask.getDate().toLocalTime());
+        notifyButton.setSelected(selectedTask.getNotify());
+        if(selectedTask.getNotify()){
+            notDatePicker.setValue(selectedTask.getNotificationDate().toLocalDate());
+            notTimePicker.setValue(selectedTask.getNotificationDate().toLocalTime());
+        }
         priorityButton.setSelected(selectedTask.getPriority());
         notifyButton.setDisable(selectedTask.getNotify());
     }
@@ -114,27 +136,39 @@ public class TaskFormController implements IFormController {
         title.setDisable(disabled);
         description.setDisable(disabled);
         datePicker.setDisable(disabled);
+        timePicker.setDisable(disabled);
         priorityButton.setDisable(disabled);
         notifyButton.setDisable(disabled);
         saveBtn.setDisable(disabled);
+        if(!disabled){
+            setDisabledNotificationDate();
+        }
     }
 
 
-    private void setTask(Task task){
+    private void setTask(Task task) {
         task.setTitle(title.getText());
         if (description.getText() != null) {
             task.setDescription(description.getText());
         }
         task.setPriority(priorityButton.isSelected());
         task.setNotify(notifyButton.isSelected());
-        task.setDate(datePicker.getValue());
-        if(addNew){
-            if(parentTask!=null){
+        if(notifyButton.isSelected()){
+            task.setNotificationDate(Utils.toLocalDateTime(notDatePicker.getValue(), notTimePicker.getValue()));
+        }
+        task.setDate(Utils.toLocalDateTime(datePicker.getValue(), timePicker.getValue()));
+        if (addNew) {
+            if (parentTask != null) {
                 task.setParentTask(parentTask);
             }
-                task.setProject(project);
+            task.setProject(project);
         }
 
+    }
+
+    private void setDisabledNotificationDate() {
+        notDatePicker.setDisable(!notifyButton.isSelected());
+        notTimePicker.setDisable(!notifyButton.isSelected());
     }
 
     public void setTasks(ObservableList<Task> tasks) {
@@ -153,9 +187,9 @@ public class TaskFormController implements IFormController {
         this.selectedTask = selectedTask;
     }
 
-    public void setFormMode(boolean addNew) {
+    public void setAddNewFormMode(boolean addNew) {
         this.addNew = addNew;
-        if(!addNew){
+        if (!addNew) {
             showMore();
         }
     }

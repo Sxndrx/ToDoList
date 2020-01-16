@@ -11,13 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import toDoApp.Utils.DialogUtils;
 import toDoApp.controller.Forms.TaskFormController;
 import toDoApp.controller.ListViews.ListCells.TaskListViewCell;
-import toDoApp.model.project.Project;
-import toDoApp.model.task.Task;
-import toDoApp.model.task.TaskRepo;
+import toDoApp.model.models.Project;
+import toDoApp.model.models.Task;
+import toDoApp.model.repo.TaskRepo;
 
 import java.io.IOException;
 import java.util.List;
@@ -97,7 +98,9 @@ public class TaskListViewController {
 
             stage.setScene(new Scene(root));
             stage.setTitle("TO DO LIST");
-            stage.show();
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {

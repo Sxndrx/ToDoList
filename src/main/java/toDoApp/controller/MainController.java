@@ -6,11 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import toDoApp.controller.ListViews.ProjectListViewController;
 import toDoApp.controller.ListViews.TaskListViewController;
-import toDoApp.model.project.Project;
-import toDoApp.model.task.Task;
-import toDoApp.model.task.TaskRepo;
-
-import java.util.List;
+import toDoApp.model.models.Project;
 
 public class MainController {
     @FXML
@@ -33,11 +29,5 @@ public class MainController {
         });
         projectList.getSelectionModel().selectFirst();
     }
-
-    private void checkToNotifications(){
-        List<Task> todayTasks = TaskRepo.getTodayTasks();
-        List<Task> tomorrowTasks = TaskRepo.getTomorrowTasks();
-    }
-
 
 }

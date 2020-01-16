@@ -10,12 +10,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import toDoApp.Utils.Utils;
 import toDoApp.controller.Forms.TaskFormController;
 import toDoApp.controller.ListViews.TaskListViewController;
-import toDoApp.model.task.Task;
-import toDoApp.model.task.TaskRepo;
+import toDoApp.model.models.Task;
+import toDoApp.model.repo.TaskRepo;
 
 import java.io.IOException;
 
@@ -110,13 +111,15 @@ public class TaskListViewCell extends ListCell<Task> implements IMyListCell {
             TaskFormController controller = fxmlLoader.getController();
             controller.setTasks(getListView().getItems());
             controller.setSelectedTask(getListView().getSelectionModel().getSelectedItem());
-            controller.setFormMode(false);
+            controller.setAddNewFormMode(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
         stage.setScene(new Scene(root));
         stage.setTitle("TO DO LIST");
-        stage.show();
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
 
     @Override

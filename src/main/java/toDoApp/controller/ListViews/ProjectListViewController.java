@@ -8,11 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import toDoApp.controller.Forms.ProjectFormController;
 import toDoApp.controller.ListViews.ListCells.ProjectListViewCell;
-import toDoApp.model.project.Project;
-import toDoApp.model.project.ProjectRepo;
+import toDoApp.model.models.Project;
+import toDoApp.model.repo.ProjectRepo;
 
 import java.io.IOException;
 
@@ -53,7 +54,9 @@ public class ProjectListViewController {
         }
         stage.setScene(new Scene(root));
         stage.setTitle("TO DO LIST");
-        stage.show();
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
 
     public JFXListView<Project> getProjectsListView() {

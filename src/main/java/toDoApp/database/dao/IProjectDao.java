@@ -1,5 +1,7 @@
-package toDoApp.database.project;
+package toDoApp.database.dao;
 
+
+import toDoApp.database.entities.ProjectEntity;
 
 import java.util.List;
 

@@ -1,19 +1,20 @@
-package toDoApp.model.task;
+package toDoApp.model.models;
 
 import javafx.beans.property.*;
-import toDoApp.database.task.TaskEntity;
-import toDoApp.model.project.Project;
+import toDoApp.Utils.Utils;
+import toDoApp.database.entities.TaskEntity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Task {
 
     private StringProperty id;
     private StringProperty title;
     private StringProperty description;
-    private ObjectProperty<LocalDate> date;
+    private ObjectProperty<LocalDateTime> date;
     private BooleanProperty priority;
     private BooleanProperty notify;
+    private ObjectProperty<LocalDateTime> notificationDate;
     private BooleanProperty done;
     private ObjectProperty<Project> project;
     private ObjectProperty<Task> parentTask;
@@ -25,10 +26,10 @@ public class Task {
         date = new SimpleObjectProperty<>();
         priority = new SimpleBooleanProperty();
         notify = new SimpleBooleanProperty();
+        notificationDate = new SimpleObjectProperty<>();
         project = new SimpleObjectProperty<>();
         parentTask = new SimpleObjectProperty<>();
         done = new SimpleBooleanProperty(false);
-
     }
 
     public Task(TaskEntity taskEntity) {
@@ -38,10 +39,13 @@ public class Task {
             description = new SimpleStringProperty(taskEntity.getDescription());
         }
         if (taskEntity.getDueDate() != null) {
-            date = new SimpleObjectProperty<>(taskEntity.getDueDate());
+            date = new SimpleObjectProperty<>(Utils.toLocalDateTime(taskEntity.getDueDate()));
         }
-        priority = new SimpleBooleanProperty(taskEntity.getPriority().booleanValue());
-        notify = new SimpleBooleanProperty(taskEntity.getNotify().booleanValue());
+        priority = new SimpleBooleanProperty(taskEntity.getPriority());
+        notify = new SimpleBooleanProperty(taskEntity.getNotify());
+        if(getNotify()){
+            notificationDate = new SimpleObjectProperty<>(Utils.toLocalDateTime(taskEntity.getNotificationDate()));
+        }
         done = new SimpleBooleanProperty(taskEntity.getDone());
         project = new SimpleObjectProperty<>(new Project(taskEntity.getProjectEntity()));
         if (taskEntity.getParentTaskEntity() != null) {
@@ -52,22 +56,25 @@ public class Task {
 
     public TaskEntity toTaskEntity() {
         TaskEntity taskEntity = new TaskEntity();
-        taskEntity.setId(id.getValue());
-        taskEntity.setTitle(title.getValue());
+        taskEntity.setId(getId());
+        taskEntity.setTitle(getTitle());
         if (description != null) {
-            taskEntity.setDescription(description.getValue());
+            taskEntity.setDescription(getDescription());
         }
         if (date != null) {
-            taskEntity.setDueDate(date.getValue());
+            taskEntity.setDueDate(Utils.toDate(getDate()));
         }
-        taskEntity.setPriority(priority.get());
+        taskEntity.setPriority(getPriority());
         if (notify != null) {
-            taskEntity.setNotify(notify.get());
+            taskEntity.setNotify(getNotify());
         }
-        taskEntity.setDone(done.getValue());
-        taskEntity.setProjectEntity(project.get().toProjectEntity());
-        if (parentTask != null && parentTask.get() != null) {
-            taskEntity.setParentTaskEntity(parentTask.get().toTaskEntity());
+        if(getNotify()){
+            taskEntity.setNotificationDate(Utils.toDate(getNotificationDate()));
+        }
+        taskEntity.setDone(isDone());
+        taskEntity.setProjectEntity(getProject().toProjectEntity());
+        if (parentTask != null && getParentTask()!= null) {
+            taskEntity.setParentTaskEntity(getParentTask().toTaskEntity());
         }
 
         return taskEntity;
@@ -133,15 +140,15 @@ public class Task {
         this.notify.set(notify);
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date.get();
     }
 
-    public ObjectProperty<LocalDate> dateProperty() {
+    public ObjectProperty<LocalDateTime> dateProperty() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date.set(date);
     }
 
@@ -187,5 +194,20 @@ public class Task {
 
     public void setDone(boolean done) {
         this.done.set(done);
+    }
+
+    public LocalDateTime getNotificationDate() {
+        return notificationDate.get();
+    }
+
+    public ObjectProperty<LocalDateTime> notificationDateProperty() {
+        return notificationDate;
+    }
+
+    public void setNotificationDate(LocalDateTime notificationDate) {
+        if(this.notificationDate==null){
+            this.notificationDate = new SimpleObjectProperty<>();
+        }
+        this.notificationDate.set(notificationDate);
     }
 }

@@ -4,6 +4,10 @@
     -fx-pref-height: 30;
     -fx-pref-width: 60;
 }
+.okButton{
+    -fx-text-fill: #efefef;
+    -fx-background-color: #002f6c;
+}
 .upperBar{
     -fx-background-color: #01579b;
     -fx-pref-height: 40;

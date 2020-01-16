@@ -1,10 +1,10 @@
-package toDoApp.model.project;
+package toDoApp.model.models;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import toDoApp.database.project.ProjectEntity;
+import toDoApp.database.entities.ProjectEntity;
 
 public class Project {
 

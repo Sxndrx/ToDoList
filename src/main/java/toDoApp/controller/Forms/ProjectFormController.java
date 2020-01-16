@@ -10,9 +10,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import toDoApp.Utils.Utils;
 import toDoApp.Utils.exceptions.EmptyTitleException;
-import toDoApp.controller.ListViews.ListCells.IFormController;
-import toDoApp.model.project.Project;
-import toDoApp.model.project.ProjectRepo;
+import toDoApp.model.models.Project;
+import toDoApp.model.repo.ProjectRepo;
 
 public class ProjectFormController implements IFormController {
 
@@ -40,25 +39,20 @@ public class ProjectFormController implements IFormController {
     }
 
     @Override
-    public void setEventHandlers(){
-        saveButton.setOnMouseClicked(event -> {
-            if(addNew){
-                save();
-            }else{
-                update();
-            }
-        });
+    public void setEventHandlers() {
+        saveButton.setOnMouseClicked(event -> save());
         editBtn.setOnMouseClicked(event -> setDisabled(false));
     }
 
     @Override
     public void save() {
         try {
-            Utils.validateTitle(title);
-            Project project = new Project();
-            setProject(project);
-                ProjectRepo.addProject(project);
-                projects.add(project);
+            validateInput();
+            if (addNew) {
+                addNewObject();
+            } else {
+                update();
+            }
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         } catch (EmptyTitleException e) {
@@ -67,20 +61,26 @@ public class ProjectFormController implements IFormController {
     }
 
     @Override
-    public void update(){
-        try {
-            Utils.validateTitle(title);
-            setProject(selectedProject);
-            projects.set(projects.indexOf(selectedProject), selectedProject);
-            ProjectRepo.updateProject(selectedProject);
-            Stage stage = (Stage) saveButton.getScene().getWindow();
-            stage.close();
-        } catch (EmptyTitleException e) {
-            Utils.setWarningOnTitle(title);
-        }
+    public void addNewObject() {
+        Project project = new Project();
+        setProject(project);
+        ProjectRepo.addProject(project);
+        projects.add(project);
     }
 
-    private void setProject(Project project){
+    @Override
+    public void validateInput() throws EmptyTitleException {
+        Utils.validateTitle(title);
+    }
+
+    @Override
+    public void update() {
+        setProject(selectedProject);
+        projects.set(projects.indexOf(selectedProject), selectedProject);
+        ProjectRepo.updateProject(selectedProject);
+    }
+
+    private void setProject(Project project) {
         if (title.getText() != null) {
             project.setTitle(title.getText());
         }
@@ -95,13 +95,13 @@ public class ProjectFormController implements IFormController {
     }
 
     @Override
-    public void showMore(){
+    public void showMore() {
         setWindow();
         setDisabled(true);
     }
 
     @Override
-    public void setWindow(){
+    public void setWindow() {
         projectName.setText(selectedProject.getTitle());
         title.setText(selectedProject.getTitle());
         description.setText(selectedProject.getDescription());
@@ -110,7 +110,7 @@ public class ProjectFormController implements IFormController {
     }
 
     @Override
-    public void setDisabled(boolean disabled){
+    public void setDisabled(boolean disabled) {
         title.setDisable(disabled);
         description.setDisable(disabled);
         priorityButton.setDisable(disabled);
@@ -123,7 +123,7 @@ public class ProjectFormController implements IFormController {
 
     public void setFormMode(boolean addNew) {
         this.addNew = addNew;
-        if(!addNew){
+        if (!addNew) {
             showMore();
         }
     }

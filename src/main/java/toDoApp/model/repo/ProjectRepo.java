@@ -1,12 +1,11 @@
-package toDoApp.model.project;
+package toDoApp.model.repo;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import toDoApp.database.project.IProjectDao;
-import toDoApp.database.project.ProjectDao;
-import toDoApp.database.project.ProjectEntity;
-import toDoApp.model.task.TaskRepo;
+import toDoApp.database.dao.IProjectDao;
+import toDoApp.database.dao.ProjectDao;
+import toDoApp.database.entities.ProjectEntity;
+import toDoApp.model.models.Project;
 
 import java.util.LinkedList;
 import java.util.List;
