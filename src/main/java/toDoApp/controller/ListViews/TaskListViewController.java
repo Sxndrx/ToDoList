@@ -68,6 +68,7 @@ public class TaskListViewController {
         this.project = project;
         if (project == null) {
             setHeader("");
+            taskObservableList.clear();
         } else {
             setHeader(project.getTitle());
             setTaskObservableList();
@@ -83,27 +84,29 @@ public class TaskListViewController {
     }
 
     private void addTask() {
-        Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Forms/TaskForm.fxml"));
         Parent root = null;
         try {
-            root = fxmlLoader.load();
-            TaskFormController taskFormController = fxmlLoader.getController();
-            taskFormController.setProject(project);
-            if (parentTask != null) {
-                taskFormController.setParentTask(parentTask);
-            }
-            taskFormController.setTasks(taskObservableList);
+            if(project==null){
+                DialogUtils.showSelectProject(pane);
+            }else {
+                Stage stage = new Stage();
+                root = fxmlLoader.load();
+                TaskFormController taskFormController = fxmlLoader.getController();
+                taskFormController.setProject(project);
+                if (parentTask != null) {
+                    taskFormController.setParentTask(parentTask);
+                }
+                taskFormController.setTasks(taskObservableList);
 
-            stage.setScene(new Scene(root));
-            stage.setTitle("TO DO LIST");
-            stage.setResizable(false);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+                stage.setScene(new Scene(root));
+                stage.setTitle("TO DO LIST");
+                stage.setResizable(false);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullPointerException e) {
-            DialogUtils.showSelectProject(pane);
         }
     }
 

@@ -11,6 +11,7 @@ import toDoApp.controller.NotificationController;
 import toDoApp.model.models.Task;
 import toDoApp.model.repo.TaskRepo;
 
+import javax.persistence.NoResultException;
 import java.awt.*;
 import java.io.IOException;
 import java.sql.Date;
@@ -30,8 +31,12 @@ public class Notifier implements Runnable {
     @Override
     public void run() {
         while (true) {
-            nextTask = TaskRepo.getNextTaskNotification();
-            sleepTime = Utils.toDate(nextTask.getNotificationDate()).getTime() - Date.from(Instant.now()).getTime();
+            try{
+                nextTask = TaskRepo.getNextTaskNotification();
+                sleepTime = Utils.toDate(nextTask.getNotificationDate()).getTime() - Date.from(Instant.now()).getTime();
+            }catch (NoResultException e){
+                sleepTime = 60000;
+            }
             if (sleepTime > 30000) {
                 sleepTime = 30000;
                 checkAgain = true;
