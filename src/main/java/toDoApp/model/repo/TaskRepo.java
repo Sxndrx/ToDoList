@@ -1,5 +1,6 @@
 package toDoApp.model.repo;
 
+import javafx.application.Platform;
 import toDoApp.database.dao.ITaskDao;
 import toDoApp.database.dao.TaskDao;
 import toDoApp.database.entities.TaskEntity;
@@ -14,7 +15,7 @@ public class TaskRepo {
 
     public static void removeTasksFromProject(String projectId) {
         for (Task task : getTasksFromProject(projectId)) {
-            removeTask(task);
+            removeSubTask(task);
         }
     }
 
@@ -37,18 +38,28 @@ public class TaskRepo {
     }
 
     public static void addTask(Task task) {
-        TaskEntity taskEntity = task.toTaskEntity();
-        taskDao.addTaskEntity(taskEntity);
-        task.setId(taskEntity.getId());
+        Platform.runLater(()->{
+            TaskEntity taskEntity = task.toTaskEntity();
+            taskDao.addTaskEntity(taskEntity);
+            task.setId(taskEntity.getId());
+        });
     }
 
     public static void removeTask(Task task) {
-        List<Task> subTasks = getSubTasksFromParent(task);
-        for (Task subTask : subTasks) {
-            removeTask(subTask);
+        Platform.runLater(()->{
+            List<Task> subTasks = getSubTasksFromParent(task);
+            for (Task subTask : subTasks) {
+                removeSubTask(subTask);
+            }
+            taskDao.removeTaskEntity(task.toTaskEntity());
+        });
+    }
+    public static void removeSubTask(Task subTask){
+        List<Task> subTasks = getSubTasksFromParent(subTask);
+        for (Task task : subTasks) {
+            removeSubTask(subTask);
         }
-        taskDao.removeTaskEntity(task.toTaskEntity());
-
+        taskDao.removeTaskEntity(subTask.toTaskEntity());
     }
 
     public static void updateTask(Task task) {

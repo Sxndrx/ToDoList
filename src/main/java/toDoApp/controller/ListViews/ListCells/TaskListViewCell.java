@@ -98,6 +98,7 @@ public class TaskListViewCell extends ListCell<Task> implements IMyListCell {
     @Override
     public void delete() {
         Task task = getListView().getSelectionModel().getSelectedItem();
+        TaskRepo.removeTask(task);
         getListView().getItems().remove(task);
     }
 
