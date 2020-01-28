@@ -1,7 +1,6 @@
 package toDoApp.controller.ListViews.ListCells;
 
 import com.jfoenix.controls.JFXCheckBox;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -100,8 +99,8 @@ public class TaskListViewCell extends ListCell<Task> implements IMyListCell {
     @Override
     public void delete() {
         Task task = getListView().getSelectionModel().getSelectedItem();
-        TaskRepo.removeTask(task);
         getListView().getItems().remove(task);
+        TaskRepo.removeTask(task);
     }
 
     @Override
