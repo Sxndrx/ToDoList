@@ -92,7 +92,9 @@ public class TaskListViewCell extends ListCell<Task> implements IMyListCell {
         }
         stage.setScene(new Scene(root));
         stage.setTitle("TO DO LIST");
-        stage.show();
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
 
     @Override
